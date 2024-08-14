@@ -1,13 +1,20 @@
 import express from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from 'mongoose';
+import { Stock } from './models/stockModel.js';
+import stocksRoute from './routes/stocksRoute.js';
 
 const app = express();
+
+// middleware for parsing request body
+app.use(express.json());
 
 app.get('/', (request, response) => {
     console.log(request)
     return response.status(234).send("Welcome to the MERN Stack Tutorial!");
 });
+
+app.use('/stocks', stocksRoute);
 
 mongoose.connect(mongoDBURL)
     .then(() => {

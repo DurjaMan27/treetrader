@@ -19,7 +19,7 @@ const stockSchema = mongoose.Schema(
             required: true,
         },
         lastUpdated: {
-            type: Date,
+            type: Number,
             required: true,
         }
     },
