@@ -24,7 +24,7 @@ const CreateStock = () => {
     setLoading(true);
 
     axios
-      .post('http://localhost:55555/stocks', data)
+      .post('http://localhost:5555/stocks', data)
       .then(() => {
         setLoading(false);
         navigate('/');
@@ -56,7 +56,7 @@ const CreateStock = () => {
           <input
             type='text'
             value={ ticker }
-            onChange={ (e) => setName(e.target.value)}
+            onChange={ (e) => setTicker(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -65,7 +65,7 @@ const CreateStock = () => {
           <input
             type='text'
             value={ industry }
-            onChange={ (e) => setName(e.target.value)}
+            onChange={ (e) => setIndustry(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -74,7 +74,7 @@ const CreateStock = () => {
           <input
             type='number'
             value={ currPrice }
-            onChange={ (e) => setName(e.target.value)}
+            onChange={ (e) => setCurrPrice(parseInt(e.target.value))}
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
