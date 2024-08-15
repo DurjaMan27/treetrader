@@ -10,8 +10,7 @@ router.post('/', async (request, response) => {
             !request.body.name ||
             !request.body.symbol ||
             !request.body.industry ||
-            !request.body.currPrice ||
-            !request.body.lastUpdated
+            !request.body.currPrice
         ) {
             return response.status(400).send({
                 message: "send all required fields: name, symbol, industry, currPrice, lastUpdated"
@@ -22,8 +21,7 @@ router.post('/', async (request, response) => {
             name: request.body.name,
             symbol: request.body.symbol,
             industry: request.body.industry,
-            currPrice: request.body.currPrice,
-            lastUpdated: request.body.lastUpdated,
+            currPrice: request.body.currPrice
         };
         const stock = await Stock.create(newStock);
         return response.status(201).send(stock)
@@ -69,8 +67,7 @@ router.put('/:id', async (request, response) => {
             !request.body.name ||
             !request.body.symbol ||
             !request.body.industry ||
-            !request.body.currPrice ||
-            !request.body.lastUpdated
+            !request.body.currPrice
         ) {
             return response.status(400).send({
                 message: "send all required fields: name, symbol, industry, currPrice, lastUpdated"
