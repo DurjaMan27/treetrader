@@ -11,7 +11,7 @@ const Home = () => {
 
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     setLoading(true);
     axios
