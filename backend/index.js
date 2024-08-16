@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { Stock } from './models/stockModel.js';
 import stocksRoute from './routes/stocksRoute.js';
 import cors from 'cors';
+import userRoute from './routes/userRoute.js';
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.get('/', (request, response) => {
 });
 
 app.use('/stocks', stocksRoute);
+
+app.use('/users', userRoute);
 
 mongoose.connect(mongoDBURL)
     .then(() => {
