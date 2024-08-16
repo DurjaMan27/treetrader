@@ -5,6 +5,7 @@ import { Stock } from './models/stockModel.js';
 import stocksRoutes from './routes/stocksRoutes.js';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.get('/', (req, res) => {
 
 app.use('/stocks', stocksRoutes);
 app.use('/users', userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 mongoose.connect(mongoDBURL)
   .then(() => {
