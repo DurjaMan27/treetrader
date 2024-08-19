@@ -9,17 +9,15 @@ import RegisterScreen from './pages/LogIn';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<LoginScreen />} />
-        <Route path='/register' element={<RegisterScreen />} />
-        <Route path='/stocks/create' element={<CreateStock />} />
-        <Route path='/stocks/details/:id' element={<ShowStock />} />
-        <Route path='/stocks/edit/:id' element={<EditStock />} />
-        <Route path='/stocks/delete/:id' element={<DeleteStock />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/login' element={<LoginScreen />} />
+      <Route path='/register' element={<RegisterScreen />} />
+      <Route path='/stocks/create' element={<CreateStock />} />
+      <Route path='/stocks/details/:id' element={<ShowStock />} />
+      <Route path='/stocks/edit/:id' element={<EditStock />} />
+      <Route path='/stocks/delete/:id' element={<DeleteStock />} />
+    </Routes>
   )
 }
 
