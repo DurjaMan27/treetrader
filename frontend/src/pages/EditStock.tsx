@@ -18,10 +18,11 @@ const EditStock = () => {
     setLoading(true);
     axios.get(`http://localhost:5555/stocks/${id}`)
       .then((response) => {
-        setName(response.data.name);
-        setTicker(response.data.ticker);
-        setIndustry(response.data.industry);
-        setCurrPrice(response.data.currPrice);
+        setName(response.data.stock.name || '');
+        setTicker(response.data.stock.ticker || '');
+        setIndustry(response.data.stock.industry || '');
+        setCurrPrice(response.data.stock.currPrice || 0);
+        setLoading(false);
       })
       .catch((error) => {
         setLoading(false);

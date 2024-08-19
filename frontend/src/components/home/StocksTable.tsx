@@ -9,9 +9,9 @@ const StocksTable = ({ stocks }) => {
           <thead>
             <tr>
               <th className='border border-slate-600 rounded-md'>No</th>
-              <th className='border border-slate-600 rounded-md'>Title</th>
-              <th className='border border-slate-600 rounded-md max-md:hidden'>Author</th>
-              <th className='border border-slate-600 rounded-md max-md:hidden'>Publish Year</th>
+              <th className='border border-slate-600 rounded-md'>Company</th>
+              <th className='border border-slate-600 rounded-md max-md:hidden'>Ticker</th>
+              <th className='border border-slate-600 rounded-md max-md:hidden'>CurrPrice</th>
               <th className='border border-slate-600 rounded-md'>Operations</th>
             </tr>
           </thead>
@@ -25,7 +25,7 @@ const StocksTable = ({ stocks }) => {
                   { stock.name }
                 </td>
                 <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
-                  { stock.symbol }
+                  { stock.ticker }
                 </td>
                 <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
                   { stock.currPrice }

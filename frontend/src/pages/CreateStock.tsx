@@ -21,10 +21,6 @@ const CreateStock = () => {
       currPrice,
     }
 
-    console.log("curr price")
-    console.log(currPrice)
-    console.log(name, ticker, industry)
-
     setLoading(true);
 
     axios
