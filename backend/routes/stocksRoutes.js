@@ -19,7 +19,7 @@ router.post('/', async (request, response) => {
 
         const newStock = {
             name: request.body.name,
-            symbol: request.body.ticker,
+            ticker: request.body.ticker,
             industry: request.body.industry,
             currPrice: request.body.currPrice
         };
