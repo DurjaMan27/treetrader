@@ -8,18 +8,18 @@ router.post('/', async (request, response) => {
     try {
         if(
             !request.body.name ||
-            !request.body.symbol ||
+            !request.body.ticker ||
             !request.body.industry ||
             !request.body.currPrice
         ) {
             return response.status(400).send({
-                message: "send all required fields: name, symbol, industry, currPrice, lastUpdated"
+                message: "send all required fields: name, ticker, industry, currPrice"
             });
         }
 
         const newStock = {
             name: request.body.name,
-            symbol: request.body.symbol,
+            symbol: request.body.ticker,
             industry: request.body.industry,
             currPrice: request.body.currPrice
         };
@@ -65,12 +65,12 @@ router.put('/:id', async (request, response) => {
     try {
         if(
             !request.body.name ||
-            !request.body.symbol ||
+            !request.body.ticker ||
             !request.body.industry ||
             !request.body.currPrice
         ) {
             return response.status(400).send({
-                message: "send all required fields: name, symbol, industry, currPrice, lastUpdated"
+                message: "send all required fields: name, ticker, industry, currPrice"
             });
         }
 

@@ -6,7 +6,7 @@ const stockSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        symbol: {
+        ticker: {
             type: String,
             required: true,
         },
