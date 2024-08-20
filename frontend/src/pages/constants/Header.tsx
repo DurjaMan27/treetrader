@@ -18,6 +18,7 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener('storage', handleLocalStorage);
+    console.log("here we are");
 
     return () => {
       window.removeEventListener('storage', handleLocalStorage);

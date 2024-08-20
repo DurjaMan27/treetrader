@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import CreateStock from './pages/CreateStock';
 import ShowStock from './pages/ShowStock';
