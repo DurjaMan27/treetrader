@@ -3,8 +3,6 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js'
 
 const registerUser = asyncHandler(async (request, response) => {
-  console.log("here I am!")
-  console.log(request.body)
   const { username, email, password } = request.body;
 
   const userExists = await User.findOne(
@@ -17,27 +15,28 @@ const registerUser = asyncHandler(async (request, response) => {
   )
 
   if(userExists) {
-    response.status(400)
-    throw new Error('This username or email already exists');
-  }
-
-  const user = await User.create({
-    username,
-    email,
-    password
-  });
-
-  if(user) {
-    res.status(201).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
+    response.status(201).json({
+      token: "exists",
+    })
   } else {
-    response.status(400)
-    throw new Error('Error Occurred!')
+    const user = await User.create({
+      username,
+      email,
+      password
+    });
+
+    if(user) {
+      response.status(201).json({
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      });
+    } else {
+      response.status(400)
+      throw new Error('Error Occurred!')
+    }
   }
 });
 

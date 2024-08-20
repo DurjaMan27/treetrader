@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import ErrorMessage from '../components/ErrorMessage';
 import axios, { AxiosError } from 'axios';
@@ -12,9 +12,9 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -38,30 +38,40 @@ const RegisterScreen = () => {
 
         setLoading(true);
 
-
-        // const { data } = await axios.post(
-        //   "/users",
-        //   dataPackage,
-        //   config
-        // );
-        const { data } = await axios.post('http://localhost:5555/users/test', dataPackage)
-          .then(() => {
-            setLoading(false);
-            localStorage.setItem("userInfo", JSON.stringify(data))
-          })
-          .catch((error) => {
-            setLoading(false);
-            console.log(error)
-            console.log("error with the post method");
-          })
-
+        const response = await axios.post('http://localhost:5555/users/register', dataPackage, config)
+          // .then(() => {
+          //   setLoading(false);
+          //   localStorage.setItem("userInfo", JSON.stringify(data))
+          // })
+          // .catch((error) => {
+          //   setLoading(false);
+          //   console.log(error)
+          //   console.log("error with the post method");
+          // })
+        if (response && response.data) {
+          const { data } = response;
+          if (data.token === "exists") {
+            throw new Error("A user with this email or username already exists. Please use a different email and/or username.");
+          }
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      } catch (error) {
         setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error: unknown) {
-        setError(error.response.data.message);
+        setError(error.message);
       }
     }
   }
+
+  // useEffect(() => {
+  //   if(registered) {
+  //     const navigate = useNavigate()
+  //     setRegistered(false);
+  //     navigate('/');
+  //   }
+  // }, [registered])
 
   return (
     <div className='login-container'>
