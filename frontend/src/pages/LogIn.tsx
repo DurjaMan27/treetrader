@@ -1,5 +1,5 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner.tsx';
@@ -11,14 +11,7 @@ const LoginScreen = ({ history }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
-
-  //   if(userInfo) {
-  //     history.push('/mynotes');
-  //   }
-  // }, [history]);
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -31,18 +24,23 @@ const LoginScreen = ({ history }) => {
 
       setLoading(true);
 
-      const { data } = await axios.post(
-        '/users/login',
+      const response = await axios.post(
+        'http://localhost:5555/users/login',
         {
           email,
           password,
         },
         config
       );
-
-      console.log(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
+      
+      if (response && response.data) {
+        const { data } = response;
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+      navigate('/');
     } catch (error: any) {
       setLoading(false);
       setError(error.response.data.message);
