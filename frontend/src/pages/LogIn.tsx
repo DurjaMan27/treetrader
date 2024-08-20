@@ -22,17 +22,15 @@ const LoginScreen = ({ history }) => {
         }
       }
 
+      const dataPackage = {
+        email,
+        password
+      }
+
       setLoading(true);
 
-      const response = await axios.post(
-        'http://localhost:5555/users/login',
-        {
-          email,
-          password,
-        },
-        config
-      );
-      
+      const response = await axios.post('http://localhost:5555/users/login', dataPackage, config);
+
       if (response && response.data) {
         const { data } = response;
         localStorage.setItem('userInfo', JSON.stringify(data));
@@ -48,7 +46,7 @@ const LoginScreen = ({ history }) => {
   }
 
   return (
-    <body>
+    <div>
       <div>Login Screen</div>
       { error && <ErrorMessage variant="danger">{ error }</ErrorMessage>}
       { loading && <Spinner /> }
@@ -82,7 +80,7 @@ const LoginScreen = ({ history }) => {
           New Customer? <Link to="/register">Register Here</Link>
         </Col>
       </Row>
-    </body>
+    </div>
   );
 }
 

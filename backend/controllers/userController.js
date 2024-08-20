@@ -41,11 +41,16 @@ const registerUser = asyncHandler(async (request, response) => {
 });
 
 const authUser = asyncHandler( async (request, response) => {
-  const { username, password } = request.body;
+  const { email, password } = request.body;
+  console.log("BODY")
+  console.log(request.body);
 
-  const user = await User.findOne({ username: username });
+  const user = await User.findOne({ email: email });
+
+  console.log(user);
 
   if(user && (await user.matchPassword(password))) {
+    console.log("FOUND HIM")
     response.json({
       _id: user._id,
       username: user.username,
@@ -54,6 +59,7 @@ const authUser = asyncHandler( async (request, response) => {
       token: generateToken(user._id),
     });
   } else {
+    console.log("wrong password!!")
     response.statusCode(400);
     throw new Error('Invalid Username or Password')
   }
