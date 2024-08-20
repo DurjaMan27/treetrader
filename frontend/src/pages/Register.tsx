@@ -14,7 +14,7 @@ const RegisterScreen = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [registered, setRegistered] = useState(false);
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -58,6 +58,7 @@ const RegisterScreen = () => {
         } else {
           setLoading(false);
         }
+        navigate('/')
       } catch (error) {
         setLoading(false);
         setError(error.message);
