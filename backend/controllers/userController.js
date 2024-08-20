@@ -4,6 +4,7 @@ import generateToken from '../utils/generateToken.js'
 
 const registerUser = asyncHandler(async (request, response) => {
   const { username, email, password } = request.body;
+  const portfolio = []
 
   const userExists = await User.findOne(
     {
@@ -20,9 +21,12 @@ const registerUser = asyncHandler(async (request, response) => {
     })
   } else {
     const user = await User.create({
-      username,
-      email,
-      password
+      username: username,
+      email: email,
+      password: password,
+      stocks: {
+        portfolio: [],
+      }
     });
 
     if(user) {
@@ -31,6 +35,7 @@ const registerUser = asyncHandler(async (request, response) => {
         username: user.username,
         email: user.email,
         isAdmin: user.isAdmin,
+        stocks: user.stocks,
         token: generateToken(user._id),
       });
     } else {
@@ -57,6 +62,7 @@ const authUser = asyncHandler( async (request, response) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      stocks: user.stocks
     });
   } else {
     console.log("wrong password!!")

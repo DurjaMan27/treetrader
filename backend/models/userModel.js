@@ -24,6 +24,38 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false,
+    },
+
+    stocks: {
+
+      watching: {
+        type: [String],
+        required: true,
+        default: []
+      },
+
+      portfolio: [
+        {
+          ticker: {
+            type: String,
+            required: true,
+          },
+          numShares: {
+            type: Number,
+            required: true,
+            min: 1,
+          },
+          datePurchased: {
+            type: Date,
+            required: true,
+          },
+          originalPrice: {
+            type: Number,
+            required: true,
+            min: 0,
+          }
+        }
+      ]
     }
   },
   {
