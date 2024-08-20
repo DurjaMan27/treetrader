@@ -30,13 +30,30 @@ const RegisterScreen = () => {
           },
         };
 
+        const dataPackage = {
+          username,
+          email,
+          password,
+        }
+
         setLoading(true);
 
-        const { data } = await axios.post(
-          "/users",
-          { username, email, password },
-          config
-        );
+
+        // const { data } = await axios.post(
+        //   "/users",
+        //   dataPackage,
+        //   config
+        // );
+        const { data } = await axios.post('http://localhost:5555/users/test', dataPackage)
+          .then(() => {
+            setLoading(false);
+            localStorage.setItem("userInfo", JSON.stringify(data))
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error)
+            console.log("error with the post method");
+          })
 
         setLoading(false);
         localStorage.setItem("userInfo", JSON.stringify(data));
@@ -48,6 +65,7 @@ const RegisterScreen = () => {
 
   return (
     <div className='login-container'>
+      <h1>Register Screen</h1>
       { error && <ErrorMessage variant='danger'>{ error }</ErrorMessage> }
       { message && <ErrorMessage variant='danger'>{ message }</ErrorMessage> }
       { loading && <Spinner /> }
@@ -91,6 +109,10 @@ const RegisterScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
       </Form>
     </div>
   )
