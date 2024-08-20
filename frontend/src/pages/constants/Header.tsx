@@ -1,35 +1,32 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Logout from '../LogOut';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../UserContext';
+
 
 const Header = () => {
 
-  const [loggedIn, setLoggedIn] = useState(() => localStorage.getItem('userInfo') !== null);
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { signedIn, setSignedIn } = context;
 
-  const handleLocalStorage = () => {
-    setLoggedIn(localStorage.getItem('userInfo') !== null);
-    if(localStorage.getItem('userInfo') !== null) {
-      setUsername(localStorage.getItem('userInfo').username || "");
-      console.log("here we go");
-      console.log(localStorage.getItem('userInfo').username)
-    }
+  const Logout = () => {
+    localStorage.removeItem("userInfo");
+    setSignedIn({
+      signedIn: false,
+      data: {
+        username: "",
+        email: "",
+      }
+    })
+
+    navigate('/');
   }
-
-  useEffect(() => {
-    window.addEventListener('storage', handleLocalStorage);
-    console.log("here we are");
-
-    return () => {
-      window.removeEventListener('storage', handleLocalStorage);
-    };
-  }, []);
 
   return (
     <header>
       <nav>
         <Link to="/">Home</Link>
-        { loggedIn ? (
+        { signedIn.signedIn ? (
           <>
             <button onClick={Logout}>Log Out</button>
             <Link to="/profile">Profile</Link>
@@ -38,8 +35,8 @@ const Header = () => {
           <Link to="/login">Login</Link>
         )}
       </nav>
-      { loggedIn ? (
-        <p>Logged in as <strong>{ username }</strong>.</p>
+      { signedIn.signedIn ? (
+        <p>Logged in as <strong>{ signedIn.data.username }</strong>.</p>
       ) : (
         <p></p>
       )}

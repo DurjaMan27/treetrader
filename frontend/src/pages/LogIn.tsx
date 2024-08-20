@@ -1,17 +1,21 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner.tsx';
 import ErrorMessage from '../components/ErrorMessage.tsx';
+import UserContext from './UserContext';
 
 const LoginScreen = ({ history }) => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const context = useContext(UserContext)
+  const { signedIn, setSignedIn } = context
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -34,10 +38,20 @@ const LoginScreen = ({ history }) => {
       if (response && response.data) {
         const { data } = response;
         localStorage.setItem('userInfo', JSON.stringify(data));
-        setLoading(false);
-      } else {
-        setLoading(false);
+
+        setSignedIn({
+          signedIn: true,
+          data: {
+            username: data.username,
+            email: data.email,
+          }
+        })
       }
+
+      setLoading(false);
+      setEmail("");
+      setPassword("");
+      setError("");
       navigate('/');
     } catch (error: any) {
       setLoading(false);
@@ -66,7 +80,7 @@ const LoginScreen = ({ history }) => {
           <Form.Control
             type="password"
             value={password}
-            placeholder="password"
+            placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>

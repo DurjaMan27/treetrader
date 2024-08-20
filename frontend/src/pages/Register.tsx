@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import ErrorMessage from '../components/ErrorMessage';
 import axios, { AxiosError } from 'axios';
+import UserContext from './UserContext';
 
 const RegisterScreen = () => {
 
@@ -15,6 +16,9 @@ const RegisterScreen = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const context = useContext(UserContext)
+  const { signedIn, setSignedIn } = context
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -54,6 +58,15 @@ const RegisterScreen = () => {
             throw new Error("A user with this email or username already exists. Please use a different email and/or username.");
           }
           localStorage.setItem('userInfo', JSON.stringify(data));
+
+          setSignedIn({
+            signedIn: true,
+            data: {
+              username: data.username,
+              email: data.email,
+            }
+          })
+
           setLoading(false);
         } else {
           setLoading(false);
