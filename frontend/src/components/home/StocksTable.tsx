@@ -1,9 +1,50 @@
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import { FaEye } from 'react-icons/fa';
+import axios from 'axios';
+import UserContext from '../../pages/UserContext';
 
 const StocksTable = ({ stocks }) => {
+
+  const context = useContext(UserContext)
+  const { signedIn, setSignedIn } = context
+
+  const [watching, setWatching] = useState(false);
+  const [iconClass, setIconClass] = useState('rgb(196, 196, 196)');
+
+  useEffect(() => {
+    if (watching) {
+      setIconClass('rgb(0, 255, 0)');
+    } else {
+      setIconClass('rgb(196, 196, 196)');
+    }
+  }, [watching])
+
+  useEffect(() => {
+    checkWatchingStatus();
+  }, [stocks])
+
+  const checkWatchingStatus = async () => {
+    if (signedIn.signedIn) {
+      const response = await axios.get('http://localhost:5555/users/watchlist', {
+        params: {
+          username: signedIn.data.username,
+        }
+      })
+      if (response && response.data) {
+        const { data } = response;
+        for(let i = 0; i < data.watchlist.length; i++) {
+          if (data.watchlist[i] === stocks.ticker ) {
+            setWatching(true);
+          }
+        }
+      }
+    }
+  }
+
   return (
     <table className='w-full border-separate border-spacing-2'>
           <thead>
