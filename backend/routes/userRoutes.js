@@ -11,7 +11,6 @@ router.post('/watchlist/:ticker', async (request, response) => {
   try {
     if(
         !request.body.username ||
-        !request.body.ticker ||
         (request.body.action !== 'add' && request.body.action !== 'remove')
     ) {
         return response.status(400).send({
@@ -19,7 +18,7 @@ router.post('/watchlist/:ticker', async (request, response) => {
         });
     }
 
-    const { username } = request.body.username;
+    const username = request.body.username;
     const user = await User.findOne({ username: username });
 
     if (!user) {
@@ -35,16 +34,13 @@ router.post('/watchlist/:ticker', async (request, response) => {
         user._id,
         {
           $addToSet: {
-            stocks: {
-              watching: ticker
-            }
+            'stocks.watching': ticker,
           }
         },
         {
           new: true
         }
       );
-
       if(!result) {
         return response.status(404).json({ message: "Stock not found" });
       }
@@ -53,9 +49,7 @@ router.post('/watchlist/:ticker', async (request, response) => {
         user._id,
         {
           $pull: {
-            stocks: {
-              watching: ticker
-            }
+            'stocks.watching': ticker,
           }
         },
         {
@@ -82,10 +76,10 @@ router.get('/watchlist', async (request, response) => {
     const user = await User.findOne({ username: username });
 
     return response.status(200).json({watchlist: user.stocks.watching})
-} catch (error) {
-    console.log(error.message)
-    response.status(500).send({ message: error.message })
-}
+  } catch (error) {
+      console.log(error.message)
+      response.status(500).send({ message: error.message })
+  }
 })
 
 router.get('/portfolio', async (request, response) => {
@@ -95,10 +89,10 @@ router.get('/portfolio', async (request, response) => {
     const user = await User.findOne({ username: username });
 
     return response.status(200).json({portfolio: user.stocks.portfolio})
-} catch (error) {
-    console.log(error.message)
-    response.status(500).send({ message: error.message })
-}
+  } catch (error) {
+      console.log(error.message)
+      response.status(500).send({ message: error.message })
+  }
 })
 
 export default router;
