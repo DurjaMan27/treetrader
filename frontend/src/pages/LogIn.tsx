@@ -56,9 +56,9 @@ const LoginScreen = ({ history }) => {
       setPassword("");
       setError("");
       navigate('/');
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      setError(error.response.data.message);
+      setError(error.message);
     }
   }
 
