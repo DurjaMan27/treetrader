@@ -30,6 +30,8 @@ const Header = () => {
           <>
             <button onClick={Logout}>Log Out</button>
             <Link to="/profile">Profile</Link>
+            <Link to="/watchlist">Watchlist</Link>
+            <Link to="/portfolio">Portfolio</Link>
           </>
         ) : (
           <Link to="/login">Login</Link>

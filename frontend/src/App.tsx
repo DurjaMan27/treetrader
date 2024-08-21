@@ -9,6 +9,9 @@ import Login from './pages/LogIn';
 import Register from './pages/Register';
 import Layout from './pages/constants/Layout';
 import UserContext from './pages/UserContext';
+import Watchlist from './pages/watchPortfolio/Watchlist';
+import Portfolio from './pages/watchPortfolio/Portfolio';
+
 
 interface UserState {
   signedIn: boolean,
@@ -33,6 +36,8 @@ const App = () => {
           <Route path='/stocks/details/:id' element={<ShowStock />} />
           <Route path='/stocks/edit/:id' element={<EditStock />} />
           <Route path='/stocks/delete/:id' element={<DeleteStock />} />
+          <Route path='/portfolio' element={<Portfolio />} />
+          <Route path='/watchlist' element={<Watchlist />} />
         </Routes>
       </Layout>
     </UserContext.Provider>
