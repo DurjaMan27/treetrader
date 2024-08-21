@@ -75,4 +75,30 @@ router.post('/watchlist/:ticker', async (request, response) => {
   }
 })
 
+router.get('/watchlist', async (request, response) => {
+  try {
+    const username = request.query.username;
+
+    const user = await User.findOne({ username: username });
+
+    return response.status(200).json({watchlist: user.stocks.watching})
+} catch (error) {
+    console.log(error.message)
+    response.status(500).send({ message: error.message })
+}
+})
+
+router.get('/portfolio', async (request, response) => {
+  try {
+    const username = request.query.username;
+
+    const user = await User.findOne({ username: username });
+
+    return response.status(200).json({portfolio: user.stocks.portfolio})
+} catch (error) {
+    console.log(error.message)
+    response.status(500).send({ message: error.message })
+}
+})
+
 export default router;

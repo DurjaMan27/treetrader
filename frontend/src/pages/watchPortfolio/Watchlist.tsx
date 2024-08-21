@@ -8,16 +8,32 @@ const Watchlist = () => {
   const context = useContext(UserContext)
   const { signedIn, setSignedIn } = context
 
-  const [numWatching, setNumWatching] = useState(0);
+  const [watching, setWatching] = useState([]);
+
+  const getWatchlist = async () => {
+
+    if (signedIn.signedIn) {
+      const response = await axios.get('http://localhost:5555/users/watchlist', {
+        params: {
+          username: signedIn.data.username,
+        }
+      })
+      if (response && response.data) {
+        const { data } = response;
+        setWatching(data.watchlist);
+      }
+    }
+  }
+
   useEffect(() => {
-    setNumWatching(signedIn.data.stocks.watching.length);
-  }, [])
+    getWatchlist();
+  }, [signedIn])
 
   return (
     <div>
       { signedIn.signedIn ? (
           <>
-            { numWatching === 0 ? (
+            { watching.length === 0 ? (
               <>
                 <h1>You aren't watching any stocks right now.</h1>
                 <h1>Head to the <Link to='/'>home page</Link> to see which stocks are the best for you!</h1>

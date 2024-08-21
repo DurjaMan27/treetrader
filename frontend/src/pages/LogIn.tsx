@@ -49,6 +49,8 @@ const LoginScreen = ({ history }) => {
             email: data.email,
           }
         })
+
+        console.log(data);
       }
 
       setLoading(false);
