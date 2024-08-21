@@ -65,9 +65,9 @@ const authUser = asyncHandler( async (request, response) => {
       stocks: user.stocks
     });
   } else {
-    console.log("wrong password!!")
-    response.statusCode(400);
-    throw new Error('Invalid Username or Password')
+    response.status(201).json({
+      token: "exists",
+    })
   }
 })
 

@@ -37,6 +37,9 @@ const LoginScreen = ({ history }) => {
 
       if (response && response.data) {
         const { data } = response;
+        if (data.token === "exists") {
+          throw new Error("Your email or password are incorrect. Please enter the correct email or password.");
+        }
         localStorage.setItem('userInfo', JSON.stringify(data));
 
         setSignedIn({
