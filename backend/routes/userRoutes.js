@@ -88,6 +88,7 @@ router.post('/watchlist/:ticker', async (request, response) => {
 })
 
 router.get('/watchlist', async (request, response) => {
+  console.log("idk at least I am showing up");
   try {
     const username = request.query.username;
 

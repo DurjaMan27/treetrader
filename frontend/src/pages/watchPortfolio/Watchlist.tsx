@@ -11,13 +11,15 @@ const Watchlist = () => {
   const [watching, setWatching] = useState([]);
 
   const getWatchlist = async () => {
-
     if (signedIn.signedIn) {
-      const response = await axios.get('http://localhost:5555/users/watchlist', {
-        params: {
-          username: signedIn.data.username,
-        }
-      })
+      console.log('here is usernameeee');
+      console.log(signedIn.data.username);
+      // const response = await axios.get('http://localhost:5555/users/watchlist', {
+      //   params: {
+      //     username: signedIn.data.username,
+      //   }
+      // })
+      const response = await axios.get('http://localhost:5555/users/watchlist')
       if (response && response.data) {
         const { data } = response;
         setWatching(data.watchlist);

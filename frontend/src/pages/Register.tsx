@@ -39,7 +39,7 @@ const RegisterScreen = () => {
           username,
           email,
           password,
-          portfolioInvestment
+          totalFunds
         }
 
         setLoading(true);
