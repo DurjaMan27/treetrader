@@ -125,6 +125,8 @@ router.post('/portfolio', async (request, response) => {
   const portfolio = user.stocks.portfolio;
   const stock = portfolio.find(item => item.ticker === ticker);
 
+
+
   if(stock) {
     const result = await User.findOneAndUpdate(
       { _id: user._id, 'stocks.portfolio.ticker': ticker},
@@ -133,6 +135,7 @@ router.post('/portfolio', async (request, response) => {
           'stocks.portfolio.$.numShares': stock.numShares + numShares,
           'stocks.portfolio.$.priceInvested': stock.priceInvested + totalPrice,
           'stocks.portfolio.$.datePurchased': new Date(),
+          'totalFunds': user.totalFunds - totalPrice,
         }
       },
       {
@@ -160,6 +163,9 @@ router.post('/portfolio', async (request, response) => {
       {
         $addToSet: {
           'stocks.portfolio': addingPackage,
+        },
+        $set : {
+          'totalFunds': user.totalFunds - totalPrice,
         }
       },
       {

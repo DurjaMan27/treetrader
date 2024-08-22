@@ -5,6 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import UserContext from './UserContext';
+import PortfolioForm from './PortfolioForm';
 
 const ShowStock = () => {
 
@@ -16,20 +17,6 @@ const ShowStock = () => {
 
   const context = useContext(UserContext)
   const { signedIn, setSignedIn } = context
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios
-  //     .get(`http://localhost:5555/stocks/${id}`)
-  //     .then((response) => {
-  //       setStock(response.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setLoading(false);
-  //     })
-  // })
 
   const findStock = async () => {
     const response = await axios.get(`http://localhost:5555/stocks/${ticker}`);
@@ -100,7 +87,7 @@ const ShowStock = () => {
                   <div>
                     { portfolioForm ? (
                       <div>
-                        
+                        <PortfolioForm ticker={stock} />
                         <button onClick={togglePortfolioForm}>Close Form</button>
                       </div>
                     ) : (

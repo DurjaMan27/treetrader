@@ -79,7 +79,6 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           }
 
           setLoading(false);
-          navigate('/');
         }
       }
 

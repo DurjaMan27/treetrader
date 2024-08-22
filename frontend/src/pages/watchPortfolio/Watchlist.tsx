@@ -41,7 +41,7 @@ const Watchlist = () => {
               <ul>
                 {watching.map((ticker, index) => (
                   <Link to={`/stocks/details/${ticker}`}>
-                    <li key={index}>{ ticker }</li>
+                    <li key={ticker}>{ ticker }</li>
                   </Link>
                 ))}
               </ul>

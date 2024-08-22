@@ -41,26 +41,28 @@ const Portfolio = () => {
     <div>
       { signedIn.signedIn ? (
           <>
+            <h1>Total Portfolio Funds: ${totalFunds}</h1>
+            <button onClick={addFunds}>Add more funds.</button>
             { portfolio.length === 0 ? (
               <>
-                <h1>Total Portfolio Funds: ${totalFunds}</h1>
-                <button onClick={addFunds}>Add more funds.</button>
                 <h1>You don't have any stocks in your portfolio right now.</h1>
                 <h1>Head to the <Link to='/'>home page</Link> to see which stocks are the best for you!</h1>
               </>
             ) : (
-              <ul>
-                {signedIn.data.stocks.portfolio.map((ticker, index) => (
-                  <li>
-                    <div style={{border: '1px black solid'}}>
-                      <h1>{ ticker.ticker }</h1>
-                      <h2>Number of shares: { ticker.numShares }</h2>
-                      <h2>Date Purchased: { ticker.datePurchased }</h2>
-                      <h3>Price When Purchased: { ticker.purchasedPrice }</h3>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul>
+                  { portfolio.map((ticker, index) => (
+                    <li>
+                      <div key={ticker} style={{border: '1px black solid'}}>
+                        <h1>{ ticker.ticker }</h1>
+                        <h2>Number of shares: { ticker.numShares }</h2>
+                        <h2>Date Purchased: { ticker.datePurchased }</h2>
+                        <h3>Price When Purchased: { ticker.priceInvested }</h3>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
           </>
         ) : (
