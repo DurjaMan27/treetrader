@@ -17,6 +17,10 @@ const stockSchema = mongoose.Schema(
         currPrice: {
             type: Number,
             required: true,
+        },
+        lastPrice: {
+            type: Number,
+            required: true,
         }
     },
     {

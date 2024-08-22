@@ -1,5 +1,6 @@
 import express from 'express';
 import { Stock } from '../models/stockModel.js';
+import yahooFinance from 'yahoo-finance2';
 
 const router = express.Router();
 
@@ -10,10 +11,11 @@ router.post('/', async (request, response) => {
             !request.body.name ||
             !request.body.ticker ||
             !request.body.industry ||
-            !request.body.currPrice
+            !request.body.currPrice ||
+            !request.body.lastPrice
         ) {
             return response.status(400).send({
-                message: "send all required fields: name, ticker, industry, currPrice"
+                message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
             });
         }
 
@@ -21,7 +23,8 @@ router.post('/', async (request, response) => {
             name: request.body.name,
             ticker: request.body.ticker,
             industry: request.body.industry,
-            currPrice: request.body.currPrice
+            currPrice: request.body.currPrice,
+            lastPrice: request.body.lastPrice,
         };
         const stock = await Stock.create(newStock);
         return response.status(201).send(stock)
@@ -66,10 +69,11 @@ router.put('/:id', async (request, response) => {
             !request.body.name ||
             !request.body.ticker ||
             !request.body.industry ||
-            !request.body.currPrice
+            !request.body.currPrice ||
+            ! request.body.lastPrice
         ) {
             return response.status(400).send({
-                message: "send all required fields: name, ticker, industry, currPrice"
+                message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
             });
         }
 
@@ -87,7 +91,6 @@ router.put('/:id', async (request, response) => {
         response.status(500).send({ message: error.message })
     }
 });
-
 // Route to delete a stock
 router.delete('/:id', async (request, response) => {
     try {
@@ -105,5 +108,32 @@ router.delete('/:id', async (request, response) => {
         response.status(500).send({ message: error.message })
     }
 });
+
+router.post('/addAll', async (request, response) => {
+    try {
+        if(
+            !request.body.tickers
+        ) {
+            return response.status(400).send({
+                message: "send all required fields: tickers"
+            });
+        }
+
+        const industryData = await
+
+        const newStock = {
+            name: request.body.name,
+            ticker: request.body.ticker,
+            industry: request.body.industry,
+            currPrice: request.body.currPrice,
+            lastPrice: request.body.lastPrice,
+        };
+        const stock = await Stock.create(newStock);
+        return response.status(201).send(stock)
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+})
 
 export default router;
