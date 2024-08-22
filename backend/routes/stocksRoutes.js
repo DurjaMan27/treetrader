@@ -119,16 +119,42 @@ router.post('/addAll', async (request, response) => {
             });
         }
 
-        const industryData = await
+        for(let i = 0; i < request.body.tickers.length; i++) {
 
-        const newStock = {
-            name: request.body.name,
-            ticker: request.body.ticker,
-            industry: request.body.industry,
-            currPrice: request.body.currPrice,
-            lastPrice: request.body.lastPrice,
-        };
-        const stock = await Stock.create(newStock);
+            const industryData = await yahooFinance.insights(request.body.tickers[i], {
+                lang: 'en-US',
+                reportsCount: 0,
+                region: 'US'
+            })
+            const industry = industryData.companySnapshot.sectorInfo
+
+            const priceData = await yahooFinance.historical(request.body.tickers[i], {
+                period1: "2024-08-01",
+                interval: "1d",
+            })
+
+            const currPrice = priceData[-1].adjClose.toFixed(2);
+            const lastPrice = priceData[-2].adjClose.toFixed(2);
+
+            const companyData = await yahooFinance.autoc(request.body.tickers[i])
+            let name = "";
+            for(let j = 0; j < companyData.Result.length; j++) {
+                if(companyData.Result[j].symbol === request.body.tickers[i]) {
+                    name = companyData.Result[j].name;
+                    break;
+                }
+            }
+
+            const newStock = {
+                name: name,
+                ticker: request.body.ticker[i],
+                industry: industry,
+                currPrice: currPrice,
+                lastPrice: lastPrice,
+            };
+            const stock = await Stock.create(newStock);
+        }
+
         return response.status(201).send(stock)
     } catch (error) {
         console.log(error.message);
