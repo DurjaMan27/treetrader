@@ -36,7 +36,6 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
       const response = await axios.get(`http://localhost:5555/users/user/${signedIn.data.username}`);
       if (response && response.data) {
         const { data } = response;
-        console.log(data);
         setTotalFunds(data.totalFunds)
       }
     }
@@ -68,9 +67,6 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           totalPrice: totalPrice,
           action: "buy",
         }
-
-        console.log("data packageeeee");
-        console.log(dataPackage);
 
         const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
         if (response && response.data) {

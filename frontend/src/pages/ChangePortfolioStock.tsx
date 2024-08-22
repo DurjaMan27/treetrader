@@ -90,9 +90,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
         action: "sell",
       }
 
-      console.log("data packageeeee");
-      console.log(dataPackage);
-
       const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
       if (response && response.data) {
         const { data } = response;
@@ -124,9 +121,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
         totalPrice: totalPrice,
         action: "buy",
       }
-
-      console.log("data packageeeee");
-      console.log(dataPackage);
 
       const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
       if (response && response.data) {
