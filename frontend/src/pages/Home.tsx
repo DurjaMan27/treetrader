@@ -14,8 +14,10 @@ import TopMovers from './TopMovers';
 const Home = () => {
 
   const [stocks, setStocks] = useState([]);
+  const [filteredStocks, setFilteredStocks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState('card');
+  const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -31,10 +33,31 @@ const Home = () => {
     })
   }, [])
 
+  useEffect(() => {
+    if (filterValue === "") {
+      setFilteredStocks([]);
+    } else {
+      const lowercasedFilter = filterValue.toLowerCase();
+      const filteredData = stocks.filter((stock) =>
+          stock.name.toLowerCase().includes(lowercasedFilter) ||
+          stock.ticker.toLowerCase().includes(lowercasedFilter)
+      );
+      setFilteredStocks(filteredData);
+    }
+  }, [filterValue])
+
   return (
     <div>
       <div className="top-movers">
         <TopMovers />
+      </div>
+      <div className="filter-bar">
+        <input
+          type="string"
+          value={filterValue}
+          placeholder="Filter by company name or stock ticker"
+          onChange={(e) => setFilterValue(e.target.value)}
+        />
       </div>
       <div className="p-4">
         <div className='flex justify-center items-center gap-x-4'>
@@ -51,7 +74,7 @@ const Home = () => {
             <MdOutlineAddBox className='text-sky-800 text-4xl' />
           </Link>
         </div>
-        { loading ? <Spinner /> : showType === 'table' ? ( <StocksTable stocks={stocks} /> ) : ( <StocksCard stocks={stocks} /> ) }
+        { loading ? <Spinner /> : filterValue === '' ? ( <StocksCard stocks={stocks} /> ) : ( <StocksCard stocks={filteredStocks} /> ) }
       </div>
     </div>
   )
