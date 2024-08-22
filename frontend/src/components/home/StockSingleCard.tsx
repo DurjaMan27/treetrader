@@ -94,7 +94,7 @@ const StockSingleCard = ({ stock }) => {
         <h2 className='my-1'>{stock.company}</h2>
       </div>
       <div className='flex justify-between items-center gap-x-2 mt-4 p-4'>
-        <Link to={`stocks/details/${stock._id}`}>
+        <Link to={`stocks/details/${stock.ticker}`}>
           <BsInfoCircle className='text-2xl text-green-800 hover:text-black' />
         </Link>
         { signedIn.signedIn &&
