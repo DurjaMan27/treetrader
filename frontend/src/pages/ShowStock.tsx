@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
+import UserContext from './UserContext';
 
 const ShowStock = () => {
 
   const [stock, setStock] = useState({})
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [portfolioForm, setPortfolioForm] = useState(false);
   const { ticker } = useParams();
+
+  const context = useContext(UserContext)
+  const { signedIn, setSignedIn } = context
 
   // useEffect(() => {
   //   setLoading(true);
@@ -36,6 +42,14 @@ const ShowStock = () => {
       } else {
         setStock(data.stock)
       }
+    }
+  }
+
+  const togglePortfolioForm = () => {
+    if (portfolioForm) {
+      setPortfolioForm(false);
+    } else {
+      setPortfolioForm(true);
     }
   }
 
@@ -82,6 +96,20 @@ const ShowStock = () => {
                 <span className='text-xl mr-4 text-gray-500'>Last Update Time</span>
                 <span>{ new Date(stock.updatedAt).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}) }</span>
               </div>
+                { signedIn.signedIn ? (
+                  <div>
+                    { portfolioForm ? (
+                      <div>
+                        
+                        <button onClick={togglePortfolioForm}>Close Form</button>
+                      </div>
+                    ) : (
+                      <button onClick={togglePortfolioForm}>Add to Portfolio</button>
+                    )}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
             </div>
           )
         )}
