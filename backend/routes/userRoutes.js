@@ -181,18 +181,22 @@ router.post('/portfolio', async (request, response) => {
     if(stock) {
       if (stock.numShares < numShares) {
         return response.status(404).json({ message: "Selling more shares than currently owned." });
-      } else if (setRandomFallback.numShares === numShares) {
+      } else if (stock.numShares === numShares) {
         const result = await User.findOneAndUpdate(
           { _id: user._id, 'stocks.portfolio.ticker': ticker },
           {
             $pull: {
               'stocks.portfolio': { ticker: ticker }
+            },
+            $set : {
+              'totalFunds': user.totalFunds + totalPrice
             }
           },
           {
             new: true,
           }
         )
+
       } else {
         const result = await User.findOneAndUpdate(
           { _id: user._id, 'stocks.portfolio.ticker': ticker},
