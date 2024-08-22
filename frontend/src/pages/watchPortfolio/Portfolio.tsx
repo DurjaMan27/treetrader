@@ -9,6 +9,7 @@ const Portfolio = () => {
   const { signedIn, setSignedIn } = context
 
   const [portfolio, setPortfolio] = useState([]);
+  const [totalFunds, setTotalFunds] = useState(0);
 
   const getPortfolio = async () => {
 
@@ -23,8 +24,13 @@ const Portfolio = () => {
         console.log(data);
         console.log(data.portfolio);
         setPortfolio(data.portfolio);
+        setTotalFunds(data.totalFunds);
       }
     }
+  }
+
+  const addFunds = async () => {
+    console.log("adding funds...");
   }
 
   useEffect(() => {
@@ -37,6 +43,8 @@ const Portfolio = () => {
           <>
             { portfolio.length === 0 ? (
               <>
+                <h1>Total Portfolio Funds: ${totalFunds}</h1>
+                <button onClick={addFunds}>Add more funds.</button>
                 <h1>You don't have any stocks in your portfolio right now.</h1>
                 <h1>Head to the <Link to='/'>home page</Link> to see which stocks are the best for you!</h1>
               </>

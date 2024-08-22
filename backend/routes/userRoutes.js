@@ -7,6 +7,24 @@ const router = express.Router();
 router.route('/register').post(registerUser);
 router.route('/login').post(authUser);
 
+router.get('/:username', async (request, response) => {
+  try {
+    const { username } = request.params;
+
+    const user = await User.findOne({ username: username });
+
+    return response.status(200).json({
+      username: user.username,
+      email: user.email,
+      totalFunds: user.totalFunds,
+      stocks: user.stocks,
+    })
+  } catch (error) {
+      console.log(error.message)
+      response.status(500).send({ message: error.message })
+  }
+})
+
 router.post('/watchlist/:ticker', async (request, response) => {
   try {
     if(
@@ -88,11 +106,15 @@ router.get('/portfolio', async (request, response) => {
 
     const user = await User.findOne({ username: username });
 
-    return response.status(200).json({portfolio: user.stocks.portfolio})
+    return response.status(200).json({totalFunds: user.totalFunds, portfolio: user.stocks.portfolio})
   } catch (error) {
       console.log(error.message)
       response.status(500).send({ message: error.message })
   }
+})
+
+router.post('/portfolio', async (request, response) => {
+  const { username, ticker, numShares, totalPrice } = request.body;
 })
 
 export default router;

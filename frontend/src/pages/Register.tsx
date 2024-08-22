@@ -10,6 +10,7 @@ const RegisterScreen = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [totalFunds, setTotalFunds] = useState(0);
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -38,20 +39,12 @@ const RegisterScreen = () => {
           username,
           email,
           password,
+          portfolioInvestment
         }
 
         setLoading(true);
 
         const response = await axios.post('http://localhost:5555/users/register', dataPackage, config)
-          // .then(() => {
-          //   setLoading(false);
-          //   localStorage.setItem("userInfo", JSON.stringify(data))
-          // })
-          // .catch((error) => {
-          //   setLoading(false);
-          //   console.log(error)
-          //   console.log("error with the post method");
-          // })
         if (response && response.data) {
           const { data } = response;
           if (data.token === "exists") {
@@ -111,6 +104,17 @@ const RegisterScreen = () => {
             value={ email }
             placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId='formBasicNumber'>
+          <Form.Label>Starting Portfolio Investment</Form.Label>
+          <Form.Control
+            type="number"
+            min="1"
+            value={ totalFunds }
+            placeholder="Enter starting portfolio investment"
+            onChange={(e) => setTotalFunds(parseInt(e.target.value))}
           />
         </Form.Group>
 

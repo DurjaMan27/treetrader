@@ -3,8 +3,7 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js'
 
 const registerUser = asyncHandler(async (request, response) => {
-  const { username, email, password } = request.body;
-  const portfolio = []
+  const { username, email, password, totalFunds } = request.body;
 
   const userExists = await User.findOne(
     {
@@ -22,6 +21,7 @@ const registerUser = asyncHandler(async (request, response) => {
   } else {
     const user = await User.create({
       username: username,
+      totalFunds: totalFunds,
       email: email,
       password: password,
       stocks: {
@@ -36,6 +36,7 @@ const registerUser = asyncHandler(async (request, response) => {
         email: user.email,
         isAdmin: user.isAdmin,
         stocks: user.stocks,
+        totalFunds: user.totalFunds,
         token: generateToken(user._id),
       });
     } else {
@@ -60,6 +61,7 @@ const authUser = asyncHandler( async (request, response) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      totalFunds: user.totalFunds,
       stocks: user.stocks
     });
   } else {
