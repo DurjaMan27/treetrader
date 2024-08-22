@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema(
             type: Date,
             required: true,
           },
-          originalPrice: {
+          priceInvested: {
             type: Number,
             required: true,
             min: 0,
