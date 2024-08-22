@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import CreateStock from './pages/CreateStock';
@@ -24,6 +24,12 @@ interface UserState {
 const App = () => {
 
   const [signedIn, setSignedIn] = useState<UserState>({signedIn: false, data: {username: "", email: ""}})
+
+  useEffect(() => {
+    if(!signedIn.signedIn) {
+      localStorage.removeItem("userInfo");
+    }
+  }, [signedIn])
 
   return (
     <UserContext.Provider value={{ signedIn, setSignedIn }}>
