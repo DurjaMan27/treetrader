@@ -76,7 +76,30 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
     if (numShares > currShares) {
       setMessage("Cannot sell more shares than you have currently");
     } else {
-      console.log("need to add api");
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const dataPackage = {
+        username: signedIn.data.username,
+        ticker: ticker,
+        numShares: numShares,
+        totalPrice: totalPrice,
+        action: "sell",
+      }
+
+      console.log("data packageeeee");
+      console.log(dataPackage);
+
+      const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
+      if (response && response.data) {
+        const { data } = response;
+        setLoading(false);
+      }
+      setBuyMore(false);
+      setSellMore(false);
     }
   }
 
@@ -99,6 +122,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
         ticker: ticker,
         numShares: numShares,
         totalPrice: totalPrice,
+        action: "buy",
       }
 
       console.log("data packageeeee");

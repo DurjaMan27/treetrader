@@ -66,6 +66,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           ticker: ticker.ticker,
           numShares: numShares,
           totalPrice: totalPrice,
+          action: "buy",
         }
 
         console.log("data packageeeee");

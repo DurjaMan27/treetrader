@@ -119,64 +119,108 @@ router.get('/portfolio', async (request, response) => {
 })
 
 router.post('/portfolio', async (request, response) => {
-  const { username, ticker, numShares, totalPrice } = request.body;
+  const { username, ticker, numShares, totalPrice, action } = request.body;
 
   const user = await User.findOne({ username: username });
   const portfolio = user.stocks.portfolio;
   const stock = portfolio.find(item => item.ticker === ticker);
 
 
-
-  if(stock) {
-    const result = await User.findOneAndUpdate(
-      { _id: user._id, 'stocks.portfolio.ticker': ticker},
-      {
-        $set: {
-          'stocks.portfolio.$.numShares': stock.numShares + numShares,
-          'stocks.portfolio.$.priceInvested': stock.priceInvested + totalPrice,
-          'stocks.portfolio.$.datePurchased': new Date(),
-          'totalFunds': user.totalFunds - totalPrice,
-        }
-      },
-      {
-        new: true
-      }
-    );
-
-    if(!result) {
-      console.log("lmao you failed");
-      console.log(user.stocks.portfolio)
-    } else {
-      console.log("updated successfully")
-      console.log(user.stocks.portfolio)
-    }
-  } else {
-    const addingPackage = {
-      ticker: ticker,
-      numShares: numShares,
-      datePurchased: new Date(),
-      priceInvested: totalPrice,
-    }
-
-    const result = await User.findByIdAndUpdate(
-      user._id,
-      {
-        $addToSet: {
-          'stocks.portfolio': addingPackage,
+  if(action === 'buy') {
+    if(stock) {
+      const result = await User.findOneAndUpdate(
+        { _id: user._id, 'stocks.portfolio.ticker': ticker},
+        {
+          $set: {
+            'stocks.portfolio.$.numShares': stock.numShares + numShares,
+            'stocks.portfolio.$.priceInvested': stock.priceInvested + totalPrice,
+            'stocks.portfolio.$.datePurchased': new Date(),
+            'totalFunds': user.totalFunds - totalPrice,
+          }
         },
-        $set : {
-          'totalFunds': user.totalFunds - totalPrice,
+        {
+          new: true
         }
-      },
-      {
-        new: true
+      );
+  
+      if(!result) {
+        console.log("lmao you failed");
+        console.log(user.stocks.portfolio)
+      } else {
+        console.log("updated successfully")
+        console.log(user.stocks.portfolio)
       }
-    );
-    if(!result) {
-      return response.status(404).json({ message: "Stock not found" });
+    } else {
+      const addingPackage = {
+        ticker: ticker,
+        numShares: numShares,
+        datePurchased: new Date(),
+        priceInvested: totalPrice,
+      }
+
+      const result = await User.findByIdAndUpdate(
+        user._id,
+        {
+          $addToSet: {
+            'stocks.portfolio': addingPackage,
+          },
+          $set : {
+            'totalFunds': user.totalFunds - totalPrice,
+          }
+        },
+        {
+          new: true
+        }
+      );
+      if(!result) {
+        return response.status(404).json({ message: "Stock not found" });
+      }
+      console.log("wow it actually worked -> added to portfolio")
     }
-    console.log("wow it actually worked -> added to portfolio")
+  } else if (action === 'sell') {
+    if(stock) {
+      if (stock.numShares < numShares) {
+        return response.status(404).json({ message: "Selling more shares than currently owned." });
+      } else if (setRandomFallback.numShares === numShares) {
+        const result = await User.findOneAndUpdate(
+          { _id: user._id, 'stocks.portfolio.ticker': ticker },
+          {
+            $pull: {
+              'stocks.portfolio': { ticker: ticker }
+            }
+          },
+          {
+            new: true,
+          }
+        )
+      } else {
+        const result = await User.findOneAndUpdate(
+          { _id: user._id, 'stocks.portfolio.ticker': ticker},
+          {
+            $set: {
+              'stocks.portfolio.$.numShares': stock.numShares - numShares,
+              'stocks.portfolio.$.priceInvested': stock.priceInvested - totalPrice,
+              'totalFunds': user.totalFunds + totalPrice,
+            }
+          },
+          {
+            new: true
+          }
+        );
+    
+        if(!result) {
+          console.log("lmao you failed");
+          console.log(user.stocks.portfolio)
+        } else {
+          console.log("updated successfully")
+          console.log(user.stocks.portfolio)
+        }
+      }
+    } else {
+      return response.status(404).json({ message: "Stock not found"})
+    }
   }
+
 
   return response.status(200).json({ message: 'Successfully added to portfolio' });
 })
