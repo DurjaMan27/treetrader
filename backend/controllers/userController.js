@@ -54,7 +54,6 @@ const authUser = asyncHandler( async (request, response) => {
   const user = await User.findOne({ email: email });
 
   if(user && (await user.matchPassword(password))) {
-    console.log("FOUND HIM")
     response.json({
       _id: user._id,
       username: user.username,

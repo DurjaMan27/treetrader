@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/register').post(registerUser);
 router.route('/login').post(authUser);
 
-router.get('/:username', async (request, response) => {
+router.get('/user/:username', async (request, response) => {
   try {
     const { username } = request.params;
 
@@ -88,15 +88,19 @@ router.post('/watchlist/:ticker', async (request, response) => {
 })
 
 router.get('/watchlist', async (request, response) => {
-  console.log("idk at least I am showing up");
   try {
     const username = request.query.username;
+
+    if (!username) {
+      console.log("username query parameter is required");
+      console.log(request.query);
+    }
 
     const user = await User.findOne({ username: username });
 
     return response.status(200).json({watchlist: user.stocks.watching})
   } catch (error) {
-      console.log(error.message)
+      // console.log(error.message)
       response.status(500).send({ message: error.message })
   }
 })

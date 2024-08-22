@@ -36,7 +36,7 @@ const StockSingleCard = ({ stock }) => {
         params: {
           username: signedIn.data.username,
         }
-      })
+      });
       if (response && response.data) {
         const { data } = response;
         for(let i = 0; i < data.watchlist.length; i++) {
