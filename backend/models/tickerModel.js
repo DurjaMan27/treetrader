@@ -12,4 +12,4 @@ const tickerSchema = mongoose.Schema(
     }
 )
 
-export const Ticker = mongoose.model('Ticker', stockSchema)
+export const Ticker = mongoose.model('Ticker', tickerSchema)

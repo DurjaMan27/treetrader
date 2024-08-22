@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/', async (request, response) => {
   try {
-      const tickerSymbols = await Stock.find({}, 'ticker');
+      const tickerSymbols = await Ticker.find({}, 'ticker');
 
-      const tickerNames = tickers.map(ticker => ticker.ticker); // array of tickers
+      const tickerNames = tickerSymbols.map(ticker => ticker.ticker); // array of tickers
 
       return response.status(200).json({
-          count: tickerSymbols.length,
+          count: tickerNames.length,
           data: tickerNames
       })
   } catch (error) {

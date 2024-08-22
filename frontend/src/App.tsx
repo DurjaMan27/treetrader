@@ -11,6 +11,7 @@ import Layout from './pages/constants/Layout';
 import UserContext from './pages/UserContext';
 import Watchlist from './pages/watchPortfolio/Watchlist';
 import Portfolio from './pages/watchPortfolio/Portfolio';
+import axios from 'axios';
 
 
 interface UserState {
@@ -30,8 +31,32 @@ const App = () => {
     if (data !== null && signedIn.signedIn === false) {
       const JSON_data = JSON.parse(data);
       setSignedIn({signedIn: true, data: {username: JSON_data.username, email: JSON_data.email}})
+    } else if (signedIn.signedIn) {
+      updatingStocks();
     }
+
   }, [signedIn])
+
+  const updatingStocks = async () => {
+    const response = await axios.get('http://localhost:5555/tickers/');
+
+    if(response && response.data) {
+      const tickers = response.data;
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      // console.log(tickers.data.slice(0,4));
+
+      const dataPackage = {
+        tickers: tickers.data,
+      }
+
+      const message = await axios.post('http://localhost:5555/stocks/addAll', dataPackage, config);
+    }
+  }
 
   return (
     <UserContext.Provider value={{ signedIn, setSignedIn }}>

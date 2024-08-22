@@ -6,160 +6,199 @@ const router = express.Router();
 
 // route to save a new stock
 router.post('/', async (request, response) => {
-    try {
-        if(
-            !request.body.name ||
-            !request.body.ticker ||
-            !request.body.industry ||
-            !request.body.currPrice ||
-            !request.body.lastPrice
-        ) {
-            return response.status(400).send({
-                message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
-            });
-        }
-
-        const newStock = {
-            name: request.body.name,
-            ticker: request.body.ticker,
-            industry: request.body.industry,
-            currPrice: request.body.currPrice,
-            lastPrice: request.body.lastPrice,
-        };
-        const stock = await Stock.create(newStock);
-        return response.status(201).send(stock)
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+  try {
+    if (
+      !request.body.name ||
+      !request.body.ticker ||
+      !request.body.industry ||
+      !request.body.currPrice ||
+      !request.body.lastPrice
+    ) {
+      return response.status(400).send({
+        message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
+      });
     }
+
+    const newStock = {
+      name: request.body.name,
+      ticker: request.body.ticker,
+      industry: request.body.industry,
+      currPrice: request.body.currPrice,
+      lastPrice: request.body.lastPrice,
+    };
+    const stock = await Stock.create(newStock);
+    return response.status(201).send(stock)
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
 
 // Route to GET all stocks from the database
 router.get('/', async (request, response) => {
-    try {
-        const stocks = await Stock.find({});
-        // return response.status(200).json(stocks);
-        return response.status(200).json({
-            count: stocks.length,
-            data: stocks
-        })
-    } catch (error) {
-        console.log(error.message)
-        response.status(500).send({ message: error.message })
-    }
+  try {
+    const stocks = await Stock.find({});
+    // return response.status(200).json(stocks);
+    return response.status(200).json({
+      count: stocks.length,
+      data: stocks
+    })
+  } catch (error) {
+    console.log(error.message)
+    response.status(500).send({ message: error.message })
+  }
 })
 
 // Route to GET specific stock from the database
 router.get('/:ticker', async (request, response) => {
-    try {
-        const { ticker } = request.params;
-        const stock = await Stock.findOne({ ticker: ticker });
+  try {
+    const { ticker } = request.params;
+    const stock = await Stock.findOne({ ticker: ticker });
 
-        return response.status(200).json({stock})
-    } catch (error) {
-        console.log(error.message)
-        return response.status(200).json({name: 'error'})
-    }
+    return response.status(200).json({ stock })
+  } catch (error) {
+    console.log(error.message)
+    return response.status(200).json({ name: 'error' })
+  }
 })
 
 // Route to update a stock
 router.put('/:id', async (request, response) => {
-    try {
-        if(
-            !request.body.name ||
-            !request.body.ticker ||
-            !request.body.industry ||
-            !request.body.currPrice ||
-            ! request.body.lastPrice
-        ) {
-            return response.status(400).send({
-                message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
-            });
-        }
-
-        const { id } = request.params;
-
-        const result = await Stock.findByIdAndUpdate(id, request.body);
-
-        if(!result) {
-            return response.status(404).json({ message: "Stock not found" });
-        }
-
-        return response.status(200).send({ message: "Stock updated successfully" })
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message })
+  try {
+    if (
+      !request.body.name ||
+      !request.body.ticker ||
+      !request.body.industry ||
+      !request.body.currPrice ||
+      !request.body.lastPrice
+    ) {
+      return response.status(400).send({
+        message: "send all required fields: name, ticker, industry, currPrice, lastPrice"
+      });
     }
+
+    const { id } = request.params;
+
+    const result = await Stock.findByIdAndUpdate(id, request.body);
+
+    if (!result) {
+      return response.status(404).json({ message: "Stock not found" });
+    }
+
+    return response.status(200).send({ message: "Stock updated successfully" })
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message })
+  }
 });
 // Route to delete a stock
 router.delete('/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
+  try {
+    const { id } = request.params;
 
-        const result = await Stock.findByIdAndDelete(id);
+    const result = await Stock.findByIdAndDelete(id);
 
-        if (!result) {
-            return response.status(404).json({ message: "Stock not found" });
-        }
-
-        return response.status(200).send({ message: "Stock deleted successfully" });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message })
+    if (!result) {
+      return response.status(404).json({ message: "Stock not found" });
     }
+
+    return response.status(200).send({ message: "Stock deleted successfully" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message })
+  }
 });
 
 router.post('/addAll', async (request, response) => {
-    try {
-        if(
-            !request.body.tickers
-        ) {
-            return response.status(400).send({
-                message: "send all required fields: tickers"
-            });
-        }
-
-        for(let i = 0; i < request.body.tickers.length; i++) {
-
-            const industryData = await yahooFinance.insights(request.body.tickers[i], {
-                lang: 'en-US',
-                reportsCount: 0,
-                region: 'US'
-            })
-            const industry = industryData.companySnapshot.sectorInfo
-
-            const priceData = await yahooFinance.historical(request.body.tickers[i], {
-                period1: "2024-08-01",
-                interval: "1d",
-            })
-
-            const currPrice = priceData[-1].adjClose.toFixed(2);
-            const lastPrice = priceData[-2].adjClose.toFixed(2);
-
-            const companyData = await yahooFinance.autoc(request.body.tickers[i])
-            let name = "";
-            for(let j = 0; j < companyData.Result.length; j++) {
-                if(companyData.Result[j].symbol === request.body.tickers[i]) {
-                    name = companyData.Result[j].name;
-                    break;
-                }
-            }
-
-            const newStock = {
-                name: name,
-                ticker: request.body.ticker[i],
-                industry: industry,
-                currPrice: currPrice,
-                lastPrice: lastPrice,
-            };
-            const stock = await Stock.create(newStock);
-        }
-
-        return response.status(201).send(stock)
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+  try {
+    console.log("still being called");
+    if (
+      !request.body.tickers
+    ) {
+      return response.status(400).send({
+        message: "send all required fields: tickers"
+      });
     }
+
+    for (let i = 0; i < request.body.tickers.length; i++) {
+      const findingStock = await Stock.findOne({ ticker: request.body.tickers[i] })
+      if (findingStock === null) {
+        const industryData = await yahooFinance.insights(request.body.tickers[i], {
+          lang: 'en-US',
+          reportsCount: 0,
+          region: 'US'
+        })
+        const industry = industryData.companySnapshot.sectorInfo
+
+        const priceData = await yahooFinance.historical(request.body.tickers[i], {
+          period1: "2024-08-01",
+          interval: "1d",
+        })
+        const companyData = await yahooFinance.search(request.body.tickers[i], {
+          quotesCount: 5,
+          newsCount: 0,
+        })
+
+        let name = "";
+        for (let j = 0; j < companyData.quotes.length; j++) {
+          if (companyData.quotes[j].symbol === request.body.tickers[i]) {
+            name = companyData.quotes[j].shortname;
+            break;
+          }
+        }
+
+        const currPrice = priceData[priceData.length - 1].adjClose.toFixed(2);
+        const lastPrice = priceData[priceData.length - 2].adjClose.toFixed(2);
+        console.log("Updating...", request.body.tickers[i]);
+
+        const newStock = {
+          name: name,
+          ticker: request.body.tickers[i],
+          industry: industry,
+          currPrice: currPrice,
+          lastPrice: lastPrice,
+        };
+        const stock = await Stock.create(newStock);
+      } else {
+        console.log("found");
+        const updatedAt = new Date(findingStock.updatedAt);
+        const current = new Date();
+
+        updatedAt.setHours(0,0,0,0);
+        current.setHours(0,0,0,0);
+
+        if (updatedAt.getTime() !== current.getTime()) {
+          console.log("time doesn't match");
+          const priceData = await yahooFinance.historical(request.body.tickers[i], {
+            period1: "2024-08-19",
+            interval: "1d",
+          })
+
+          const currPrice = priceData[priceData.length - 1].adjClose.toFixed(2);
+          const lastPrice = priceData[priceData.length - 2].adjClose.toFixed(2);
+
+          const result = await Stock.findOneAndUpdate(
+            { ticker: request.body.tickers[i] },
+            {
+              currPrice: currPrice,
+              lastPrice: lastPrice,
+            },
+            {
+              new: true,
+            }
+          );
+
+        } else {
+          return response.status(201).send("Already updated today");
+        }
+      }
+    }
+
+    return response.status(201).send("All have been created");
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 })
 
 export default router;
