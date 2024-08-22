@@ -50,7 +50,7 @@ router.get('/', async (request, response) => {
 })
 
 // Route to GET specific stock from the database
-router.get('/:ticker', async (request, response) => {
+router.get('/ticker/:ticker', async (request, response) => {
   try {
     const { ticker } = request.params;
     const stock = await Stock.findOne({ ticker: ticker });
@@ -199,6 +199,34 @@ router.post('/addAll', async (request, response) => {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
+});
+
+router.get('/setofTickers', async (request, response) => {
+  try {
+    // console.log("here we go!!!")
+    // console.log(request)
+    // return response.status(200).json({ message: "hello"})
+    let stockList = []
+    for(let i = 0; i < request.query.tickers.length; i++) {
+      const stock = await Stock.findOne({ ticker: request.query.tickers[i] });
+      stockList.push(stock)
+    }
+
+    return response.status(200).json({ list: stockList });
+  } catch (error) {
+    console.log(error.message)
+    return response.status(200).json({ name: 'error' })
+  }
 })
+
+// router.get('/topMovers', async (request, response) => {
+
+  
+
+//   const priceData = await yahooFinance.historical(request.body.tickers[i], {
+//     period1: "2024-08-01",
+//     interval: "1d",
+//   })
+// });
 
 export default router;

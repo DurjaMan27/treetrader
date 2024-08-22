@@ -19,7 +19,7 @@ const ShowStock = () => {
   const { signedIn, setSignedIn } = context
 
   const findStock = async () => {
-    const response = await axios.get(`http://localhost:5555/stocks/${ticker}`);
+    const response = await axios.get(`http://localhost:5555/stocks/ticker/${ticker}`);
     if (response && response.data) {
       const { data } = response;
       console.log("here is the data")
