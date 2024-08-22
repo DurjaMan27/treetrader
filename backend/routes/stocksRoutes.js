@@ -47,16 +47,15 @@ router.get('/', async (request, response) => {
 })
 
 // Route to GET specific stock from the database
-router.get('/:id', async (request, response) => {
+router.get('/:ticker', async (request, response) => {
     try {
-        const { id } = request.params;
-
-        const stock = await Stock.findById(id);
+        const { ticker } = request.params;
+        const stock = await Stock.findOne({ ticker: ticker });
 
         return response.status(200).json({stock})
     } catch (error) {
         console.log(error.message)
-        response.status(500).send({ message: error.message })
+        return response.status(200).json({name: 'error'})
     }
 })
 
