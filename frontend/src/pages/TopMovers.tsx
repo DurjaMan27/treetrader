@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserContext from './UserContext';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 interface Stock {
@@ -58,9 +59,11 @@ const TopMovers = () => {
         ) : (
           stapleStocks.map((staple, index) => (
             <div className="moverSingularStock">
-              <h1>{ staple.ticker }</h1>
-              <h3 style={{ color: staple.currPrice < staple.lastPrice ? 'red' : 'green' }}>{ stapleChanges[index] }</h3>
-              <h1>{ staple.currPrice }</h1>
+              <Link to={`stocks/details/${staple}`}>
+                <h1>{ staple.ticker }</h1>
+                <h3 style={{ color: staple.currPrice < staple.lastPrice ? 'red' : 'green' }}>{ stapleChanges[index] }</h3>
+                <h1>{ staple.currPrice }</h1>
+              </Link>
             </div>
           ))
         )}

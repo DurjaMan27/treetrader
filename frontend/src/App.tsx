@@ -48,8 +48,6 @@ const App = () => {
         },
       };
 
-      // console.log(tickers.data.slice(0,4));
-
       const dataPackage = {
         tickers: tickers.data,
       }
