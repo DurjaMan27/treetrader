@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../UserContext';
+import SingularStock from '../SingularPortfolioStock';
 
 const Portfolio = () => {
 
@@ -54,10 +55,7 @@ const Portfolio = () => {
                   { portfolio.map((ticker, index) => (
                     <li>
                       <div key={ticker} style={{border: '1px black solid'}}>
-                        <h1>{ ticker.ticker }</h1>
-                        <h2>Number of shares: { ticker.numShares }</h2>
-                        <h2>Date Purchased: { ticker.datePurchased }</h2>
-                        <h3>Price When Purchased: { ticker.priceInvested }</h3>
+                        <SingularStock ticker={ticker} />
                       </div>
                     </li>
                   ))}

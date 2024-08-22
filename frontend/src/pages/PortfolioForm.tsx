@@ -33,7 +33,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
 
   const findFunds = async () => {
     if(signedIn.signedIn) {
-      const response = await axios.get(`http://localhost:5555/users//user/${signedIn.data.username}`);
+      const response = await axios.get(`http://localhost:5555/users/user/${signedIn.data.username}`);
       if (response && response.data) {
         const { data } = response;
         console.log(data);
@@ -74,10 +74,6 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
         const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
         if (response && response.data) {
           const { data } = response;
-          if (data.token === "exists") {
-            throw new Error("A user with this email or username already exists. Please use a different email and/or username.");
-          }
-
           setLoading(false);
         }
       }
