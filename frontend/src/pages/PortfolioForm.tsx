@@ -68,7 +68,10 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           totalPrice: totalPrice,
         }
 
-        const response = await axios.post('http://localhost:5555/users/register', dataPackage, config)
+        console.log("data packageeeee");
+        console.log(dataPackage);
+
+        const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
         if (response && response.data) {
           const { data } = response;
           if (data.token === "exists") {
