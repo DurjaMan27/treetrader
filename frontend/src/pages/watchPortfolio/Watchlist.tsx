@@ -40,8 +40,10 @@ const Watchlist = () => {
               </>
             ) : (
               <ul>
-                {signedIn.data.stocks.watching.map((ticker, index) => (
-                  <li key={index}>{ ticker }</li>
+                {watching.map((ticker, index) => (
+                  <Link to={`/stocks/details/${ticker}`}>
+                    <li key={index}>{ ticker }</li>
+                  </Link>
                 ))}
               </ul>
             )}
