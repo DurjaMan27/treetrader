@@ -26,9 +26,14 @@ const App = () => {
   const [signedIn, setSignedIn] = useState<UserState>({signedIn: false, data: {username: "", email: ""}})
 
   useEffect(() => {
-    if(!signedIn.signedIn) {
-      localStorage.removeItem("userInfo");
+    const data = localStorage.getItem('userInfo')
+    if (data !== null && signedIn.signedIn === false) {
+      const JSON_data = JSON.parse(data);
+      setSignedIn({signedIn: true, data: {username: JSON_data.username, email: JSON_data.email}})
     }
+    // if(!signedIn.signedIn) {
+    //   localStorage.removeItem("userInfo");
+    // }
   }, [signedIn])
 
   return (
