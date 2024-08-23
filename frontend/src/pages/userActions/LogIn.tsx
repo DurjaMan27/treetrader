@@ -5,6 +5,7 @@ import axios from 'axios';
 import Spinner from '../../components/Spinner.tsx';
 import ErrorMessage from '../../components/ErrorMessage.tsx';
 import UserContext from '../../components/context/UserContext.tsx';
+import './user.css'
 
 const LoginScreen = ({ history }) => {
 
@@ -65,42 +66,93 @@ const LoginScreen = ({ history }) => {
   }
 
   return (
-    <div>
+    <div className='login-container'>
       <div>Login Screen</div>
       { error && <ErrorMessage variant="danger">{ error }</ErrorMessage>}
       { loading && <Spinner /> }
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formBasicEmail" className="mb-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
             value={email}
             placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
+            className='form-control'
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formBasicPassword" className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             value={password}
             placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
+            className='form-control'
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className='d-grid'>
+          <Button variant="primary" type="submit" className='btn btn-primary'>
+            Submit
+          </Button>
+        </div>
       </Form>
       <Row className="py-3">
-        <Col>
+        <Col className='forgot-password text-right'>
           New Customer? <Link to="/register">Register Here</Link>
         </Col>
       </Row>
     </div>
+
+          
+      
   );
 }
 
 export default LoginScreen;
+
+{/* <form onSubmit={submitHandler}>
+
+        <h3>Login Screen</h3>
+        { error && <ErrorMessage variant="danger">{ error }</ErrorMessage>}
+        { loading && <Spinner /> }
+
+        <div className="mb-3">
+          <label>Email Address</label>
+          <input
+            type="email"
+            value={email}
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className='d-grid'>
+          <button type="submit" className='btn btn-primary'>
+            Submit
+          </button>
+        </div>
+        <p className='forgot-password text-right'>
+          New Customer? <Link to='/register'>Register Here</Link>
+        </p>
+      </form>
+      <Row className="py-3">
+        <Col className='forgot-password text-right'>
+          New Customer? <Link to="/register">Register Here</Link>
+        </Col>
+      </Row> 
+    </div>*/}

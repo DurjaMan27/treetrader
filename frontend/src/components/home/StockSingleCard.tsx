@@ -8,6 +8,7 @@ import { MdOutlineDelete } from 'react-icons/md';
 import { FaEye } from 'react-icons/fa';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
+import './homelayout.css';
 
 
 const StockSingleCard = ({ stock }) => {
@@ -18,6 +19,8 @@ const StockSingleCard = ({ stock }) => {
   const [watching, setWatching] = useState(false);
   const [iconClass, setIconClass] = useState('rgb(196, 196, 196)');
 
+  const [difference, setDifference] = useState('');
+
   useEffect(() => {
     if (watching) {
       setIconClass('rgb(0, 255, 0)');
@@ -26,8 +29,17 @@ const StockSingleCard = ({ stock }) => {
     }
   }, [watching])
 
+  const findDifference = () => {
+    if (stock.currPrice < stock.lastPrice) {
+      setDifference(`-$${(Math.abs(stock.currPrice - stock.lastPrice)).toFixed(2)}`)
+    } else {
+      setDifference(`+$${(Math.abs(stock.currPrice - stock.lastPrice)).toFixed(2)}`)
+    }
+  }
+
   useEffect(() => {
     checkWatchingStatus();
+    findDifference();
   }, [stock])
 
   const checkWatchingStatus = async () => {
@@ -79,32 +91,38 @@ const StockSingleCard = ({ stock }) => {
   return (
     <div
       key={stock._id}
-      className='border-2 border-gray-500 rounded-lg px-4 py-2 m-4 relative hover:shadow-xl'
+      className={stock.currPrice < stock.lastPrice ? 'all-stocks-negative' : 'all-stocks-positive'}
     >
-      <h2 className='absolute top-1 right-2 px-4 py-1 bg-red-300 rounded-lg'>
-        { stock.currPrice }
-      </h2>
-      <h4 className='my-2 text-gray-500'>{stock.ticker}</h4>
-      <div className='flex justify-start items-center gap-x-2'>
-        <PiBookOpenTextLight className='text-red-300 text-2xl' />
-        <h2 className='my-1'>{stock.name}</h2>
-      </div>
-      <div className='flex justify-start items-center gap-x-2'>
-        <BiUserCircle className='text-red-300 text-2xl' />
-        <h2 className='my-1'>{stock.company}</h2>
-      </div>
-      <div className='flex justify-between items-center gap-x-2 mt-4 p-4'>
-        <Link to={`stocks/details/${stock.ticker}`}>
-          <BsInfoCircle className='text-2xl text-green-800 hover:text-black' />
-        </Link>
+      <Link to={`stocks/details/${stock.ticker}`}>
+        <div className='stock-information'>
+          <div className='top-line'>
+            <h4 className='stock-ticker'>{stock.ticker}</h4>
+            <div className={stock.currPrice < stock.lastPrice ? 'stock-difference-negative' : 'stock-difference-positive'}>
+              { difference }
+            </div>
+          </div>
+          <div className='middle-line'>
+            <div className='stock-name'>
+              <h2>{ stock.name }</h2>
+            </div>
+            <div className='stock-industry'>
+              <h2>{ stock.industry }</h2>
+            </div>
+          </div>
+          <div className='price-line'>
+            <h2 className='stock-curr-price'>
+              ${ stock.currPrice }
+            </h2>
+          </div>
+
+        </div>
+      </Link>
+      <div className='save-section'>
         { signedIn.signedIn &&
           <button onClick={handleSaveOrUnsave}>
             <FaEye className={'text-2xl hover:text-black'} style={{ color: iconClass }}/>
           </button>
         }
-        <Link to={`stocks/delete/${stock._id}`}>
-          <MdOutlineDelete className='text-2xl text-red-600 hover:text-black' />
-        </Link>
       </div>
     </div>
   )

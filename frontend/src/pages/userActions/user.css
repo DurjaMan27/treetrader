@@ -1,0 +1,112 @@
+/* Container for the login form */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  background-color: #f4f4f9; /* Light background color */
+  padding: 20px;
+}
+
+/* Header title for the login screen */
+.login-container > div:first-child {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333; /* Darker text color for contrast */
+}
+
+/* Form container */
+form {
+  background-color: #fff; /* White background for the form */
+  padding: 30px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100%;
+  max-width: 400px; /* Limit form width */
+}
+
+/* Form labels */
+.form-label {
+  font-size: 14px;
+  color: #555; /* Slightly lighter color for labels */
+}
+
+/* Form input fields */
+.form-control {
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 15px; /* Spacing between fields */
+  margin-left: 15px;
+  width: 225px;
+}
+
+.form-control[type="password"] {
+  width: 252px;
+}
+
+.form-control[type="number"] {
+  width: 130px;
+}
+
+.form-control[type="name"] {
+  width: 250px;
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Glow on focus */
+}
+
+/* Submit button */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%; /* Full-width button */
+  margin-top: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift the button on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: #d9534f; /* Red color for error messages */
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #d9534f;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f8d7da; /* Light red background */
+}
+
+/* Row at the bottom for registration link */
+.py-3 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.forgot-password {
+  font-size: 14px;
+  color: #007bff;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: #0056b3; /* Darker link color on hover */
+}

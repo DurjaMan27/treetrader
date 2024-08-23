@@ -1,0 +1,133 @@
+.stocks {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+
+  border: 2px black solid;
+
+  margin-left: 2%;
+  margin-right: 2%;
+
+  justify-content: center;
+  align-items: top;
+  overflow: auto;
+
+  height: 62vh;
+}
+
+.stocks-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  border: 2px black solid;
+  margin-left: 2%;
+  margin-right: 2%;
+
+  font-size: 36px;
+  font-weight: bold;
+
+  height: 62vh;
+
+}
+
+.all-stocks-positive {
+  border: 2px green solid;
+  width: 95%;
+
+  margin: 2%;
+  border-radius: 10%;
+  height: 20vh;
+}
+
+.all-stocks-negative {
+  border: 2px red solid;
+  width: 95%;
+
+  margin: 2%;
+  border-radius: 10%;
+  height: 20vh;
+}
+
+.all-stocks:hover {
+  box-shadow: 2px 2px 5px 2px rgba(0.5, 0, 0, 0.5);
+}
+
+.stock-information {
+  padding: 1%;
+}
+
+.save-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+
+  border-top-color: black;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.save-section > button {
+  align-self: center;
+  justify-content: center;
+}
+
+.top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1%;
+}
+
+.top-line > h4 {
+  text-align: left;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.price-line {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.price-line > h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.middle-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: gray;
+}
+
+.stock-industry {
+  color: lightskyblue;
+}
+
+.stock-difference-positive {
+  border: 1px green solid;
+  border-radius: 30%;
+  width: auto;
+  height: auto;
+
+  color: green;
+
+  padding: 1%;
+}
+
+.stock-difference-negative {
+  border: 1px red solid;
+  border-radius: 30%;
+  width: auto;
+  height: auto;
+
+  color: red;
+
+  padding: 1%;
+}

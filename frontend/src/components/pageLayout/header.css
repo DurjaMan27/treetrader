@@ -12,18 +12,20 @@
   margin: 0;
   margin-right: 20px;
   font-size: 20px;
-
+  font-weight: bold;
   transition: font-size 0.2s ease;
 }
 .navbar-links a:hover, .navbar-links button:hover {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .header {
-  background-color: #A6E999;
+  background-color: #007bff;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding-left: 20px;
 
   height: 10vh;
 }

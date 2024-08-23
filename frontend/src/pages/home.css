@@ -13,10 +13,45 @@
 .all-stocks-section {
   border: 1px black solid;
   display: inline-block;
-  width: 60%;
-  height: 80vh;
+  width: 70%;
+  height: 82vh;
+}
+
+.top-level {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 15vh;
+}
+
+.title-text {
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .stocks {
   overflow-y: auto;
+}
+
+.filter-bar > input {
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 15px; /* Spacing between fields */
+  margin-left: 15px;
+  width: 500px;
+  text-align: center;
+}
+
+.filter-bar > input::placeholder {
+  text-align: center;
+}
+
+.filter-bar > input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Glow on focus */
 }

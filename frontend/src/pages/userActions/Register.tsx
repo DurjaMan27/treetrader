@@ -5,6 +5,7 @@ import Spinner from '../../components/Spinner';
 import ErrorMessage from '../../components/ErrorMessage';
 import axios, { AxiosError } from 'axios';
 import UserContext from '../../components/context/UserContext';
+import './user.css';
 
 const RegisterScreen = () => {
 
@@ -82,12 +83,12 @@ const RegisterScreen = () => {
 
   return (
     <div className='login-container'>
-      <h1>Register Screen</h1>
+      <div>Register Below</div>
       { error && <ErrorMessage variant='danger'>{ error }</ErrorMessage> }
       { message && <ErrorMessage variant='danger'>{ message }</ErrorMessage> }
       { loading && <Spinner /> }
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='name'>
+        <Form.Group controlId='name' className="mb-3">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="name"
@@ -97,7 +98,7 @@ const RegisterScreen = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group controlId='formBasicEmail' className="mb-3">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -107,7 +108,7 @@ const RegisterScreen = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId='formBasicNumber'>
+        <Form.Group controlId='formBasicNumber' className="mb-3">
           <Form.Label>Starting Portfolio Investment</Form.Label>
           <Form.Control
             type="number"
@@ -118,7 +119,7 @@ const RegisterScreen = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId='formBasicPassword'>
+        <Form.Group controlId='formBasicPassword' className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -128,8 +129,8 @@ const RegisterScreen = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId='confirmPassword'>
-          <Form.Label>Confirm Password</Form.Label>
+        <Form.Group controlId='confirmPassword' className="mb-3">
+          <Form.Label> Confirm{'               '}</Form.Label>
           <Form.Control
             type="password"
             value={ confirmpassword }
@@ -138,7 +139,7 @@ const RegisterScreen = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className='btn btn-primary'>
           Submit
         </Button>
       </Form>

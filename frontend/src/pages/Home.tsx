@@ -53,18 +53,20 @@ const Home = () => {
         <TopMovers />
       </div>
       <div className="all-stocks-section">
-        <div className="flex justify-between items-center">
-          <h1 className='text-3xl my-8'>Stocks List</h1>
+        <div className="top-level">
+          <div className="title">
+            <h1 className='title-text'>Stocks Database</h1>
+          </div>
+          <div className="filter-bar">
+            <input
+              type="string"
+              value={filterValue}
+              placeholder="Filter by company name or stock ticker"
+              onChange={(e) => setFilterValue(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="filter-bar">
-          <input
-            type="string"
-            value={filterValue}
-            placeholder="Filter by company name or stock ticker"
-            onChange={(e) => setFilterValue(e.target.value)}
-          />
-        </div>
-        <div className='stocks'>
+        <div className='all-stocks-grid'>
           { loading ? <Spinner /> : filterValue === '' ? ( <StocksCard stocks={stocks} /> ) : ( <StocksCard stocks={filteredStocks} /> ) }
         </div>
       </div>
