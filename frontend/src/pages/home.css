@@ -3,3 +3,20 @@
   height: 70%;
   margin: 1%;
 }
+
+.home-body-section {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+
+.all-stocks-section {
+  border: 1px black solid;
+  display: inline-block;
+  width: 60%;
+  height: 80vh;
+}
+
+.stocks {
+  overflow-y: auto;
+}

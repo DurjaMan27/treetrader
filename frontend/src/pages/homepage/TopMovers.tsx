@@ -60,9 +60,9 @@ const TopMovers = () => {
         ) : (
           stapleStocks.map((staple, index) => (
             <div className={staple.currPrice < staple.lastPrice ? 'mover-singular-stock-red' : 'mover-singular-stock-green'}>
-              <Link to={`stocks/details/${staple}`}>
-                <h1>{ staple.ticker }</h1>
-                <h3 className="price-difference" style={{ color: staple.currPrice < staple.lastPrice ? 'red' : 'green' }}>{ stapleChanges[index] }</h3>
+              <Link to={`stocks/details/${staple.ticker}`}>
+                <h1 className="ticker-name">{ staple.ticker }</h1>
+                <h1 className="price-difference" style={{ color: staple.currPrice < staple.lastPrice ? 'red' : 'green' }}>{ stapleChanges[index] }</h1>
                 <h1>${ staple.currPrice }</h1>
               </Link>
             </div>
