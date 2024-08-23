@@ -1,0 +1,15 @@
+.staples {
+  display: block;
+  border: 1px solid black;
+}
+
+.message {
+
+}
+
+.moverSingularStock {
+  border: 1px solid black;
+  display: flex;
+  margin: 5%;
+  padding: 5%;
+}

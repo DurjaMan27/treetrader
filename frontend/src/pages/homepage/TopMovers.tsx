@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../components/context/UserContext';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './topmovers.css';
 
 interface Stock {
   name: string,
@@ -53,7 +54,7 @@ const TopMovers = () => {
       <div className="staples">
         <h1>The Big Branches</h1>
         { stapleStocks.length === 0 ? (
-          <div>
+          <div className="message">
             <h1>Loading your stocks for you!</h1>
           </div>
         ) : (
