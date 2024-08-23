@@ -6,13 +6,36 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import UserContext from './UserContext';
 import PortfolioForm from './PortfolioForm';
+import ReactApexChart from 'react-apexcharts';
 
 const ShowStock = () => {
+
+  const optionsConstant = {
+    chart: {
+      animations: {
+        enabled: false,
+      },
+      type: "candlestick",
+    },
+    title: {
+        text: "CandleStick Chart",
+        align: "left",
+    },
+    xaxis: {
+        type: "datetime",
+    },
+    yaxis: {
+        tooltip: {
+            enabled: true,
+        },
+    },
+};
 
   const [stock, setStock] = useState({})
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [portfolioForm, setPortfolioForm] = useState(false);
+  const [chartData, setChartData] = useState({})
   const { ticker } = useParams();
 
   const context = useContext(UserContext)
@@ -40,10 +63,21 @@ const ShowStock = () => {
     }
   }
 
+  const getGraphData = async () => {
+    const result = await axios.get(`http://localhost:5555/stocks/tickerdata/${ticker}`);
+
+    if(result && result.data) {
+      const data = result.data;
+      setChartData(data.data)
+    }
+  }
+
   useEffect(() => {
     setErrorMessage('');
     findStock();
+    getGraphData();
   }, [])
+
 
   return (
       <div>
@@ -58,7 +92,8 @@ const ShowStock = () => {
               <Link to="/">Return to Home Page</Link>
             </div>
           ) : (
-            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
+            <div>
+              <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
               <div className='my-4'>
                 <span className='text-xl mr-4 text-gray-500'>Id</span>
                 <span>{ stock._id }</span>
@@ -97,6 +132,23 @@ const ShowStock = () => {
                 ) : (
                   <div></div>
                 )}
+              </div>
+
+              <div className="graph">
+                <ReactApexChart
+                  options={optionsConstant}
+                  series={
+                    [
+                      {
+                        data: chartData
+                      }
+                    ]
+                  }
+                  type="candlestick"
+                  height="400"
+                  width="600"
+                />
+            </div>
             </div>
           )
         )}

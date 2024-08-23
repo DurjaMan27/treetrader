@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import UserContext from '../UserContext';
 import SingularStock from '../SingularPortfolioStock';
@@ -11,6 +12,8 @@ const Portfolio = () => {
 
   const [portfolio, setPortfolio] = useState([]);
   const [totalFunds, setTotalFunds] = useState(0);
+  const [addFunds, setAddFunds] = useState(0);
+  const [toggleFunds, setToggleFunds] = useState(false);
 
   const getPortfolio = async () => {
 
@@ -30,8 +33,40 @@ const Portfolio = () => {
     }
   }
 
-  const addFunds = async () => {
-    console.log("adding funds...");
+  const toggleFundsHandler = () => {
+    if (toggleFunds) {
+      setToggleFunds(false);
+    } else {
+      setToggleFunds(true);
+    }
+  }
+
+  const addFundsHandler = async (e) => {
+    e.preventDefault();
+    console.log("here is what we are");
+    console.log(addFunds);
+    console.log(typeof(addFunds))
+    if (signedIn.signedIn) {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const dataPackage = {
+        username: signedIn.data.username,
+        addingFunds: addFunds,
+      }
+
+      const response = await axios.post('http://localhost:5555/users/addFunds', dataPackage, config);
+      if (response && response.data) {
+        const data = response.data;
+        setTotalFunds(data.totalFunds);
+        setToggleFunds(false);
+        setAddFunds(0);
+      }
+    }
+
   }
 
   useEffect(() => {
@@ -42,8 +77,28 @@ const Portfolio = () => {
     <div>
       { signedIn.signedIn ? (
           <>
-            <h1>Total Portfolio Funds: ${totalFunds}</h1>
-            <button onClick={addFunds}>Add more funds.</button>
+            <h1>Total Portfolio Funds: ${totalFunds.toFixed(2)}</h1>
+            <button onClick={toggleFundsHandler}>Add more funds.</button>
+            { toggleFunds ? (
+              <Form onSubmit={addFundsHandler}>
+                <Form.Group controlId='formBasicNumber'>
+                  <Form.Label>Starting Portfolio Investment</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="1"
+                    value={ addFunds }
+                    placeholder="Enter starting portfolio investment"
+                    onChange={(e) => setAddFunds(parseInt(e.target.value))}
+                  />
+                </Form.Group>
+
+                <Button variant="primary" type="submit">
+                  Add Funds
+                </Button>
+              </Form>
+            ) : (
+              <div></div>
+            )}
             { portfolio.length === 0 ? (
               <>
                 <h1>You don't have any stocks in your portfolio right now.</h1>

@@ -105,6 +105,43 @@ router.get('/watchlist', async (request, response) => {
   }
 })
 
+router.post('/addFunds', async (request, response) => {
+  try {
+    if (
+      !request.body.username ||
+      !request.body.addingFunds
+    ) {
+      return response.status(400).send({
+        message: "send all required fields: username, addingFunds"
+      });
+    }
+
+    const { username, addingFunds } = request.body;
+    console.log("adding Funds");
+    console.log(addingFunds)
+
+    const user = await User.findOne({ username: username})
+
+    const result = await User.findOneAndUpdate(
+      { _id: user._id },
+      {
+        $set: {
+          'totalFunds': user.totalFunds + addingFunds,
+        }
+      },
+      {
+        new: true
+      }
+    );
+
+    return response.status(200).json({ totalFunds: user.totalFunds + addingFunds })
+
+  } catch (error) {
+    console.log(error);
+    return response.status(400).json({ error })
+  }
+})
+
 router.get('/portfolio', async (request, response) => {
   try {
     const username = request.query.username;

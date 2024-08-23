@@ -26,7 +26,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
   }, [numShares, currPrice])
 
   const findCurrPrice = async () => {
-    const response = await axios.get(`http://localhost:5555/stocks/${ticker}`);
+    const response = await axios.get(`http://localhost:5555/stocks/ticker/${ticker}`);
       if (response && response.data) {
         const { data } = response;
         setCurrPrice(data.stock.currPrice)

@@ -49,6 +49,28 @@ router.get('/', async (request, response) => {
   }
 })
 
+router.get('/tickerdata/:ticker', async (request, response) => {
+  try {
+    const { ticker } = request.params;
+
+    const queryOptions = {
+      period1: '2000-01-01'
+    }
+    const result = await yahooFinance.historical(ticker, queryOptions);
+
+    let data = []
+    for(let i = 0; i < result.length; i++) {
+      data.push({ x: result[i].date, y: [result[i].open, result[i].high, result[i].low, result[i].close]})
+    }
+
+    return response.status(200).json({ data: data })
+  } catch (error) {
+    console.log("here is the error")
+    console.log(error.message)
+    return response.status(200).json({ name: 'error' })
+  }
+})
+
 // Route to GET specific stock from the database
 router.get('/ticker/:ticker', async (request, response) => {
   try {
@@ -219,14 +241,5 @@ router.get('/setofTickers', async (request, response) => {
   }
 })
 
-// router.get('/topMovers', async (request, response) => {
-
-  
-
-//   const priceData = await yahooFinance.historical(request.body.tickers[i], {
-//     period1: "2024-08-01",
-//     interval: "1d",
-//   })
-// });
 
 export default router;
