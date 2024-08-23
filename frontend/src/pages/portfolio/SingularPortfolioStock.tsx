@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ChangeStock from '../../components/ChangePortfolioStock';
+import ChangeStock from './ChangePortfolioStock';
 import axios from 'axios';
+import './portfolio.css';
 
 interface StockProps {
   ticker: {
@@ -23,7 +24,7 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
     const response = await axios.get(`http://localhost:5555/stocks/ticker/${ticker.ticker}`);
       if (response && response.data) {
         const { data } = response;
-        setCurrPrice(data.currPrice)
+        setCurrPrice(data.stock.currPrice)
       }
   }
 
@@ -35,10 +36,10 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
     if (currPrice !== 0) {
       const finalPrice = (currPrice * ticker.numShares) - ticker.priceInvested;
       if (finalPrice > 0) {
-        setGainLoss(`+$${finalPrice.toString()}`)
+        setGainLoss(`+$${finalPrice.toFixed(2).toString()}`)
         setColorGainLoss('green')
       } else if (finalPrice < 0) {
-        setGainLoss(`-$${Math.abs(finalPrice).toString()}`)
+        setGainLoss(`-$${Math.abs(finalPrice).toFixed(2).toString()}`)
         setColorGainLoss('red')
       } else {
         setGainLoss('+$0.00')
@@ -48,20 +49,20 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
   }, [currPrice])
 
   return (
-    <>
+    <div className='singular-portfolio-stock'>
       <Link to={`/stocks/details/${ticker.ticker}`}>
         <div className="main-information">
           <h1>{ ticker.ticker }</h1>
           <h2>Number of shares: { ticker.numShares }</h2>
           <h2>Date Purchased: { new Date(ticker.datePurchased).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}) }</h2>
-          <h3>Price When Purchased: { ticker.priceInvested }</h3>
+          <h3>Price When Purchased: ${ ticker.priceInvested.toFixed(2) }</h3>
         </div>
       </Link>
       <div>
         <h1 style={{ color: colorGainLoss }}>Total Gain/Loss: {gainLoss}</h1>
         <ChangeStock ticker={ticker.ticker} currShares={ticker.numShares} currPrice={currPrice} />
       </div>
-    </>
+    </div>
   )
 }
 

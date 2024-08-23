@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import UserContext from '../../components/context/UserContext';
 import SingularStock from './SingularPortfolioStock';
+import './portfolio.css';
 
 const Portfolio = () => {
 
@@ -74,38 +75,52 @@ const Portfolio = () => {
   }, [signedIn])
 
   return (
-    <div>
+    <div className='portfolio-wrapper'>
       { signedIn.signedIn ? (
-          <>
-            <h1>Total Portfolio Funds: ${totalFunds.toFixed(2)}</h1>
-            <button onClick={toggleFundsHandler}>Add more funds.</button>
-            { toggleFunds ? (
-              <Form onSubmit={addFundsHandler}>
-                <Form.Group controlId='formBasicNumber'>
-                  <Form.Label>Starting Portfolio Investment</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="1"
-                    value={ addFunds }
-                    placeholder="Enter starting portfolio investment"
-                    onChange={(e) => setAddFunds(parseInt(e.target.value))}
-                  />
-                </Form.Group>
+          <div className='portfolio-content'>
+            <div className='portfolio-funds'>
+              <div className='portfolio-funds-title'>
+                <h1>Total Portfolio Funds:</h1>
+                <h2>${totalFunds.toFixed(2)}</h2>
+              </div>
+              { toggleFunds ? (
+                <div className='input-section'>
+                  <div className='form'>
+                    <Form onSubmit={addFundsHandler}>
+                      <Form.Group controlId='formBasicNumber'>
+                        <Form.Label>Add More Funds</Form.Label>
+                        <Form.Control
+                          type="number"
+                          min="1"
+                          value={ addFunds }
+                          placeholder="Enter starting portfolio investment"
+                          onChange={(e) => setAddFunds(parseInt(e.target.value))}
+                        />
+                      </Form.Group>
 
-                <Button variant="primary" type="submit">
-                  Add Funds
-                </Button>
-              </Form>
-            ) : (
-              <div></div>
-            )}
+                      <Button variant="primary" type="submit">
+                        Add Funds
+                      </Button>
+
+                      <Row className="hide-message">
+                        <Col className='forgot-password'>
+                          <button onClick={toggleFundsHandler}>Hide</button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </div>
+                </div>
+              ) : (
+                <div className='show-add-funds'><button onClick={toggleFundsHandler}>Add more funds</button></div>
+              )}
+            </div>
             { portfolio.length === 0 ? (
-              <>
+              <div className='no-stocks-message'>
                 <h1>You don't have any stocks in your portfolio right now.</h1>
                 <h1>Head to the <Link to='/'>home page</Link> to see which stocks are the best for you!</h1>
-              </>
+              </div>
             ) : (
-              <>
+              <div className='portfolio-stocks-list'>
                 <ul>
                   { portfolio.map((ticker, index) => (
                     <li>
@@ -115,9 +130,9 @@ const Portfolio = () => {
                     </li>
                   ))}
                 </ul>
-              </>
+              </div>
             )}
-          </>
+          </div>
         ) : (
           <>
             <h1>You are not signed in currently. Please sign in to view your stock watchlist.</h1>

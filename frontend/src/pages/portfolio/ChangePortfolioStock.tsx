@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import UserContext from './context/UserContext';
+import UserContext from '../../components/context/UserContext';
 import { Oval } from 'react-loader-spinner';
 import axios from 'axios';
 
