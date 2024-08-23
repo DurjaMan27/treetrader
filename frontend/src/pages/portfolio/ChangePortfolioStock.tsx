@@ -212,7 +212,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
           </div>
         )
       ) : (
-        <div>
+        <div className='buy-or-sell-buttons'>
           <button onClick={handleSellButton} style={{ border: '1px black solid' }}>Sell Shares</button>
           <button onClick={handleBuyButton} style={{ border: '1px black solid' }}>Buy Shares</button>
         </div>

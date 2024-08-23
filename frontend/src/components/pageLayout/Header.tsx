@@ -31,7 +31,6 @@ const Header = () => {
           { signedIn.signedIn ? (
             <>
               <button onClick={Logout}>Log Out</button>
-              <Link to="/profile">Profile</Link>
               <Link to="/watchlist">Watchlist</Link>
               <Link to="/portfolio">Portfolio</Link>
             </>

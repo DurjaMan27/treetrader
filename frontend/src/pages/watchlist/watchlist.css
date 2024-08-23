@@ -1,0 +1,182 @@
+
+.stocks-grid {
+  display: grid;
+  grid-template-columns: 19% 19% 19% 19% 19%;
+
+  border: 2px black solid;
+
+  margin-left: 2%;
+  margin-right: 2%;
+
+  justify-content: center;
+  align-items: top;
+  overflow: auto;
+
+  height: 62vh;
+}
+
+.stocks-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  border: 2px black solid;
+  margin-left: 2%;
+  margin-right: 2%;
+
+  font-size: 36px;
+  font-weight: bold;
+
+  height: 62vh;
+
+}
+
+.all-stocks-positive {
+  border: 2px green solid;
+  width: 95%;
+
+  margin: 2%;
+  border-radius: 10%;
+  height: 20vh;
+}
+
+.all-stocks-negative {
+  border: 2px red solid;
+  width: 95%;
+
+  margin: 2%;
+  border-radius: 10%;
+  height: 20vh;
+}
+
+.all-stocks:hover {
+  box-shadow: 2px 2px 5px 2px rgba(0.5, 0, 0, 0.5);
+}
+
+.stock-information {
+  padding: 1%;
+}
+
+.save-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+
+  border-top-color: black;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.save-section > button {
+  align-self: center;
+  justify-content: center;
+}
+
+.top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1%;
+}
+
+.top-line > h4 {
+  text-align: left;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.price-line {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.price-line > h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.middle-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: gray;
+}
+
+.stock-industry {
+  color: lightskyblue;
+}
+
+.stock-difference-positive {
+  border: 1px green solid;
+  border-radius: 30%;
+  width: auto;
+  height: auto;
+
+  color: green;
+
+  padding: 1%;
+}
+
+.stock-difference-negative {
+  border: 1px red solid;
+  border-radius: 30%;
+  width: auto;
+  height: auto;
+
+  color: red;
+
+  padding: 1%;
+}
+
+.all-stocks-section {
+  border: 1px solid black;
+  display: inline-block;
+  width: 90%;
+  margin: 2% 0% 3% 5%;
+  height: 80vh;
+  padding: 1%;
+}
+
+.top-level {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 15vh;
+}
+
+.title-text {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.stocks {
+  overflow-y: auto;
+}
+
+.filter-bar > input {
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 15px; /* Spacing between fields */
+  margin-left: 15px;
+  width: 500px;
+  text-align: center;
+}
+
+.filter-bar > input::placeholder {
+  text-align: center;
+}
+
+.filter-bar > input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Glow on focus */
+}

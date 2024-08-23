@@ -72,6 +72,7 @@
 .show-add-funds > button:hover {
   background-color: #0056b3; /* Darker shade on hover */
   transform: translateY(-2px); /* Lift the button on hover */
+  color: white;
 }
 
 .hide-message {
@@ -100,4 +101,27 @@
   margin: 2%;
   padding: 2%;
   border: 1px black solid;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 20vh;
+}
+
+.buy-or-sell-buttons-section {
+  border: 1px black solid;
+  border-right-color: transparent;
+
+
+
+  height: 20vh;
+  width: 20%;
+}
+
+.buy-or-sell-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

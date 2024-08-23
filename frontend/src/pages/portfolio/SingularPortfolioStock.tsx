@@ -35,31 +35,30 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
   useEffect(() => {
     if (currPrice !== 0) {
       const finalPrice = (currPrice * ticker.numShares) - ticker.priceInvested;
-      if (finalPrice > 0) {
-        setGainLoss(`+$${finalPrice.toFixed(2).toString()}`)
-        setColorGainLoss('green')
-      } else if (finalPrice < 0) {
+      if (finalPrice < 0) {
         setGainLoss(`-$${Math.abs(finalPrice).toFixed(2).toString()}`)
         setColorGainLoss('red')
       } else {
-        setGainLoss('+$0.00')
-        setColorGainLoss('black')
+        setGainLoss(`+$${finalPrice.toFixed(2).toString()}`)
+        setColorGainLoss('green')
       }
     }
   }, [currPrice])
 
   return (
     <div className='singular-portfolio-stock'>
-      <Link to={`/stocks/details/${ticker.ticker}`}>
-        <div className="main-information">
+      <div className="main-information">
+        <Link to={`/stocks/details/${ticker.ticker}`}>
           <h1>{ ticker.ticker }</h1>
           <h2>Number of shares: { ticker.numShares }</h2>
           <h2>Date Purchased: { new Date(ticker.datePurchased).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}) }</h2>
           <h3>Price When Purchased: ${ ticker.priceInvested.toFixed(2) }</h3>
-        </div>
-      </Link>
-      <div>
-        <h1 style={{ color: colorGainLoss }}>Total Gain/Loss: {gainLoss}</h1>
+          <div className={colorGainLoss === 'red' ? 'gain-loss-negative' : 'gain-loss-positive'}>
+            <h1 style={{ color: colorGainLoss }}>Total Gain/Loss: {gainLoss}</h1>
+          </div>
+        </Link>
+      </div>
+      <div className='buy-or-sell-buttons-section'>
         <ChangeStock ticker={ticker.ticker} currShares={ticker.numShares} currPrice={currPrice} />
       </div>
     </div>

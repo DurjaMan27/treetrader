@@ -17,6 +17,7 @@
 }
 .navbar-links a:hover, .navbar-links button:hover {
   font-size: 25px;
+  color: white;
 }
 
 .header {
