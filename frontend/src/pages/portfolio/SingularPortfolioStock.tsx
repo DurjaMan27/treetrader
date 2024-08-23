@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ChangeStock from './ChangePortfolioStock';
+import ChangeStock from '../../components/ChangePortfolioStock';
 import axios from 'axios';
 
 interface StockProps {

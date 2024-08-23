@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import UserContext from '../UserContext';
-import SingularStock from '../SingularPortfolioStock';
+import UserContext from '../../components/context/UserContext';
+import SingularStock from './SingularPortfolioStock';
 
 const Portfolio = () => {
 

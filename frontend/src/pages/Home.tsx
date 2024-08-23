@@ -9,7 +9,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 import StocksCard from '../components/home/StocksCard';
 import StocksTable from '../components/home/StocksTable';
-import TopMovers from './TopMovers';
+import TopMovers from './homepage/TopMovers';
 
 const Home = () => {
 

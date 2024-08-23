@@ -2,9 +2,9 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import Spinner from '../components/Spinner.tsx';
-import ErrorMessage from '../components/ErrorMessage.tsx';
-import UserContext from './UserContext';
+import Spinner from '../../components/Spinner.tsx';
+import ErrorMessage from '../../components/ErrorMessage.tsx';
+import UserContext from '../../components/context/UserContext.tsx';
 
 const LoginScreen = ({ history }) => {
 

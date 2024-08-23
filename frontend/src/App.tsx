@@ -1,16 +1,16 @@
 import { createContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import CreateStock from './pages/CreateStock';
-import ShowStock from './pages/ShowStock';
-import EditStock from './pages/EditStock';
-import DeleteStock from './pages/DeleteStock';
-import Login from './pages/LogIn';
-import Register from './pages/Register';
-import Layout from './pages/constants/Layout';
-import UserContext from './pages/UserContext';
-import Watchlist from './pages/watchPortfolio/Watchlist';
-import Portfolio from './pages/watchPortfolio/Portfolio';
+import CreateStock from './pages/stockActions/CreateStock';
+import ShowStock from './pages/stockActions/ShowStock';
+import EditStock from './pages/stockActions/EditStock';
+import DeleteStock from './pages/stockActions/DeleteStock';
+import Login from './pages/userActions/LogIn';
+import Register from './pages/userActions/Register';
+import Layout from './components/pageLayout/Layout';
+import UserContext from './components/context/UserContext';
+import Watchlist from './pages/watchlist/Watchlist';
+import Portfolio from './pages/portfolio/Portfolio';
 import axios from 'axios';
 
 

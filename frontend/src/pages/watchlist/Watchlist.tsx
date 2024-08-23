@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import UserContext from '../UserContext';
+import UserContext from '../../components/context/UserContext';
 
 const Watchlist = () => {
 

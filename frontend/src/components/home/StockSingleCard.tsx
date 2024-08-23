@@ -7,7 +7,7 @@ import {BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineDelete } from 'react-icons/md';
 import { FaEye } from 'react-icons/fa';
 import axios from 'axios';
-import UserContext from '../../pages/UserContext';
+import UserContext from '../context/UserContext';
 
 
 const StockSingleCard = ({ stock }) => {

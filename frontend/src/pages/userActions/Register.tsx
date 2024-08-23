@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import Spinner from '../components/Spinner';
-import ErrorMessage from '../components/ErrorMessage';
+import Spinner from '../../components/Spinner';
+import ErrorMessage from '../../components/ErrorMessage';
 import axios, { AxiosError } from 'axios';
-import UserContext from './UserContext';
+import UserContext from '../../components/context/UserContext';
 
 const RegisterScreen = () => {
 

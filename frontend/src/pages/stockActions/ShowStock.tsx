@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-import BackButton from '../components/BackButton';
-import Spinner from '../components/Spinner';
-import UserContext from './UserContext';
-import PortfolioForm from './PortfolioForm';
+import BackButton from '../../components/BackButton';
+import Spinner from '../../components/Spinner';
+import UserContext from '../../components/context/UserContext';
+import PortfolioForm from '../../components/PortfolioForm';
 import ReactApexChart from 'react-apexcharts';
 
 const ShowStock = () => {
@@ -104,7 +104,7 @@ const ShowStock = () => {
               </div>
               <div className='my-4'>
                 <span className='text-xl mr-4 text-gray-500'>Ticker Symbol</span>
-                <span>{ stock.symbol }</span>
+                <span>{ stock.ticker }</span>
               </div>
               <div className='my-4'>
                 <span className='text-xl mr-4 text-gray-500'>Price</span>

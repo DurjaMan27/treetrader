@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import UserContext from './UserContext';
+import UserContext from '../../components/context/UserContext';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
