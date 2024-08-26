@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner';
 import UserContext from '../../components/context/UserContext';
 import PortfolioForm from '../../components/PortfolioForm';
 import ReactApexChart from 'react-apexcharts';
+import './showstock.css';
 
 const ShowStock = () => {
 
@@ -93,35 +94,29 @@ const ShowStock = () => {
             </div>
           ) : (
             <div>
-              <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Id</span>
-                <span>{ stock._id }</span>
-              </div>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Company</span>
-                <span>{ stock.name }</span>
-              </div>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Ticker Symbol</span>
-                <span>{ stock.ticker }</span>
-              </div>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Price</span>
-                <span>{ stock.currPrice }</span>
-              </div>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Create Time</span>
-                <span>{ new Date(stock.createdAt).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}) }</span>
-              </div>
-              <div className='my-4'>
-                <span className='text-xl mr-4 text-gray-500'>Last Update Time</span>
-                <span>{ new Date(stock.updatedAt).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}) }</span>
-              </div>
+              <div className='all-show-stock-content'>
+                <div className='stock-information'>
+                  <div className='stock-id'>
+                    <span>Id</span>
+                    <span>{ stock._id }</span>
+                  </div>
+                  <div className='stock-company'>
+                    <span>Company</span>
+                    <span>{ stock.name }</span>
+                  </div>
+                  <div className='stock-ticker'>
+                    <span>Ticker Symbol</span>
+                    <span>{ stock.ticker }</span>
+                  </div>
+                  <div className='stock-price'>
+                    <span>Price</span>
+                    <span>{ stock.currPrice }</span>
+                  </div>
+                </div>
                 { signedIn.signedIn ? (
-                  <div>
+                  <div className='portfolio-options-wrapper'>
                     { portfolioForm ? (
-                      <div>
+                      <div className='portfolio-form-wrapper'>
                         <PortfolioForm ticker={stock} />
                         <button onClick={togglePortfolioForm}>Close Form</button>
                       </div>
@@ -130,7 +125,9 @@ const ShowStock = () => {
                     )}
                   </div>
                 ) : (
-                  <div></div>
+                  <div className='sign-in-to-view'>
+                    <h1>Sign-in to add {stock.ticker} to your portfolio.</h1>
+                  </div>
                 )}
               </div>
 
@@ -148,7 +145,7 @@ const ShowStock = () => {
                   height="400"
                   width="600"
                 />
-            </div>
+              </div>
             </div>
           )
         )}
