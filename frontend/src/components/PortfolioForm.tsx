@@ -89,7 +89,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           type="number"
           min="1"
           value={numShares}
-          placeholder="Number of shares to purchase"
+          placeholder="# of shares to purchase"
           onChange={(e) => setNumShares(parseInt(e.target.value))}
         />
       </Form.Group>

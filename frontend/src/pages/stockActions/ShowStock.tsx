@@ -11,28 +11,8 @@ import './showstock.css';
 
 const ShowStock = () => {
 
-  const optionsConstant = {
-    chart: {
-      animations: {
-        enabled: false,
-      },
-      type: "candlestick",
-    },
-    title: {
-        text: "CandleStick Chart",
-        align: "left",
-    },
-    xaxis: {
-        type: "datetime",
-    },
-    yaxis: {
-        tooltip: {
-            enabled: true,
-        },
-    },
-};
-
-  const [stock, setStock] = useState({})
+  const [stock, setStock] = useState({});
+  const [priceDiff, setPriceDiff] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [portfolioForm, setPortfolioForm] = useState(false);
@@ -41,6 +21,27 @@ const ShowStock = () => {
 
   const context = useContext(UserContext)
   const { signedIn, setSignedIn } = context
+
+  const optionsConstant = {
+    chart: {
+      animations: {
+        enabled: false,
+      },
+      type: "candlestick",
+    },
+    title: {
+      text: `${ stock.ticker } Historical Price`,
+      align: "left",
+    },
+    xaxis: {
+      type: "datetime",
+    },
+    yaxis: {
+      tooltip: {
+          enabled: true,
+      },
+    },
+  };
 
   const findStock = async () => {
     const response = await axios.get(`http://localhost:5555/stocks/ticker/${ticker}`);
@@ -53,6 +54,21 @@ const ShowStock = () => {
       } else {
         setStock(data.stock)
       }
+    }
+  }
+
+  useEffect(() => {
+    if (stock !==  null) {
+      findDifference();
+    }
+  }, [stock])
+
+  const findDifference = async () => {
+    const difference = stock.currPrice - stock.lastPrice;
+    if (difference < 0) {
+      setPriceDiff(`(-$${Math.abs(difference).toFixed(2)})`)
+    } else {
+      setPriceDiff(`(+$${Math.abs(difference).toFixed(2)})`)
     }
   }
 
@@ -81,9 +97,7 @@ const ShowStock = () => {
 
 
   return (
-      <div>
-        <BackButton />
-        <h1 className='text-3xl my-4'>Show Stock</h1>
+      <div className='page-display'>
         { loading ? (
           <Spinner />
         ) : (
@@ -93,24 +107,20 @@ const ShowStock = () => {
               <Link to="/">Return to Home Page</Link>
             </div>
           ) : (
-            <div>
+            <div className='show-stock'>
               <div className='all-show-stock-content'>
-                <div className='stock-information'>
-                  <div className='stock-id'>
-                    <span>Id</span>
-                    <span>{ stock._id }</span>
-                  </div>
-                  <div className='stock-company'>
-                    <span>Company</span>
-                    <span>{ stock.name }</span>
-                  </div>
-                  <div className='stock-ticker'>
-                    <span>Ticker Symbol</span>
-                    <span>{ stock.ticker }</span>
-                  </div>
-                  <div className='stock-price'>
-                    <span>Price</span>
-                    <span>{ stock.currPrice }</span>
+                <div className='left-side-stock-info'>
+                  <div className='stock-information-points'>
+                    <div className='stock-ticker'>
+                      <span> { stock.ticker }</span>
+                    </div>
+                    <div className='stock-company'>
+                      <span>({ stock.name })</span>
+                    </div>
+                    <div className='stock-price-and-difference'>
+                      <span>${ stock.currPrice } </span>
+                      <span className={ stock.currPrice < stock.lastPrice ? 'daily-change-negative' : 'daily-change-positive'}>{ priceDiff }</span>
+                    </div>
                   </div>
                 </div>
                 { signedIn.signedIn ? (
@@ -131,7 +141,7 @@ const ShowStock = () => {
                 )}
               </div>
 
-              <div className="graph">
+              <div className="graph-container">
                 <ReactApexChart
                   options={optionsConstant}
                   series={
@@ -143,7 +153,7 @@ const ShowStock = () => {
                   }
                   type="candlestick"
                   height="400"
-                  width="600"
+                  width="800"
                 />
               </div>
             </div>

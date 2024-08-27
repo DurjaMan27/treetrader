@@ -1,0 +1,144 @@
+.page-display {
+  height: 90vh;
+}
+
+.back-button {
+  margin-left: 5%;
+}
+
+.show-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100%;
+  width: 90%;
+
+  margin-left: 3%;
+  margin-right: 5%;
+  padding: 2% 3% 2% 2%;
+}
+
+.all-show-stock-content {
+  border: 1px black solid;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1%;
+}
+
+.left-side-stock-info {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  align-items: center;
+  margin: 5%;
+  padding: 5%;
+
+  /* border: 1px black solid; */
+}
+
+.stock-information-points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.stock-ticker {
+  font-size: 64px;
+  font-weight: bold;
+
+  color: #007bff;
+
+  text-align: center;
+
+  margin-bottom: -20px;
+}
+
+.stock-company {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+
+  font-size: 24px;
+  font-weight: italic;
+
+  color: grey;
+
+  /* border: 1px black solid; */
+}
+
+.stock-price-and-difference {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 3%;
+  font-size: 24px;
+}
+
+.stock-price-and-difference > span {
+  margin-left: 10px;
+}
+
+.daily-change-negative {
+  color: red;
+}
+
+.daily-change-positive {
+  color: green;
+}
+
+.portfolio-options-wrapper > button {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%; /* Full-width button */
+  margin-bottom: 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-form-wrapper > button {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%; /* Full-width button */
+  margin-top: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-options-wrapper > button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift the button on hover */
+  color: white;
+}
+
+.hide-message {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  padding-top: 5px;
+}
+
+.graph-container {
+  border: 1px black solid;
+  padding: 10px;
+
+  border-radius: 5%;
+}

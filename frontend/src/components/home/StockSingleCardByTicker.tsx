@@ -113,7 +113,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
       key={stock._id}
       className={stock.currPrice < stock.lastPrice ? 'all-stocks-negative' : 'all-stocks-positive'}
     >
-      <Link to={`stocks/details/${stock.ticker}`}>
+      <Link to={`/stocks/details/${stock.ticker}`}>
         <div className='stock-information'>
           <div className='top-line'>
             <h4 className='stock-ticker'>{stock.ticker}</h4>
