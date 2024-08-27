@@ -6,6 +6,10 @@ Your job is to look through the time series data and recent news articles to pro
 Using the [ticker] and its [data], please calculate the 50-day simple moving average, 100-day simple moving average, 50-day exponential moving average, Bollinger Bands, MACD, RSI, momentum indicators, and any other indicators that you feel are important.
 Based on this data, provide your input as to whether or not an investor should buy, sell, or hold this stock. Additionally, provide brief explanations (1-2 sentences maximum) for your reasoning using the above indicators or recent news stories relating to the stock.
 
+Here is the important information:
+[ticker]: {ticker}
+[data]: {data}
+
 Return your response in the following format:
 {
   "ticker": [ticker]

@@ -10,19 +10,19 @@ fs.readFile('Input.txt', (err, data) => {
 });
 
 const gemini = new GeminiAPI({
-  apiKey: YOUR_GEMINI_API_KEY, // Replace with your actual API key
+  apiKey: GEMINI_API_KEY,
 });
 
-const executePrompt = async ({ ticker }) => {
+const executePrompt = async ({ ticker, data }) => {
   try {
 
     // Instantiation using from_template (recommended)
     const template = fs.readFile('./gemini_prompt.md');
     const prompt = new PromptTemplate({
-        inputVariables: ["ticker"],
+        inputVariables: ["ticker", "data"],
         template: template,
     });
-    const formattedPrompt = prompt.format({ ticker: ticker });
+    const formattedPrompt = prompt.format({ ticker: ticker, data: data });
 
     const response = await gemini.complete({
       prompt: formattedPrompt
