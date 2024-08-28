@@ -1,13 +1,14 @@
 import GeminiAPI from 'gemini-api';
 import { GEMINI_API_KEY } from '../config.js';
-import {HumanMessagePromptTemplate} from '@langchain/core';
+import {HumanMessagePromptTemplate} from '@langchain/core/prompts';
+import dotenv from 'dotenv';
 import fs from 'fs';
 
-const executePrompt = async ({ tickerInput, dataInput }) => {
+const executePrompt = async ({ tickerInput }) => {
   try {
 
     const gemini = new GeminiAPI({
-      apiKey: GEMINI_API_KEY,
+      apiKey: process.env.GEMINI_API_KEY,
     });
 
     // Instantiation using from_template (recommended)
@@ -19,7 +20,7 @@ const executePrompt = async ({ tickerInput, dataInput }) => {
     // const formattedPrompt = prompt.format({ ticker: ticker, data: data });
 
     const message = HumanMessagePromptTemplate.fromTemplate(text);
-    const formatted = await message.format({ ticker: tickerInput, data: dataInput })
+    const formatted = await message.format({ ticker: tickerInput })
 
     const response = await gemini.complete({
       prompt: formattedPrompt

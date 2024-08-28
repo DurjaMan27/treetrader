@@ -75,6 +75,7 @@ const ShowStock = () => {
   }
 
   const callGemini = async () => {
+    console.log("calling gemini now")
     const response = await axios.get(`http://localhost:5555/stocks/tickerrec/${ticker}`);
     if (response && response.data) {
       const { data } = response;

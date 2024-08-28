@@ -76,18 +76,12 @@ router.get('/tickerrec/:ticker', async (request, response) => {
   try {
     const { ticker } = request.params;
 
-    if (
-      !request.body.data
-    ) {
-      return response.status(400).send({
-        message: "send all required fields: ticker data"
-      });
-    }
+    console.log('we here');
+    console.log(ticker);
 
-    const data = request.body.data;
-    const result = await executePrompt(ticker, data);
+    const result = await executePrompt(ticker);
 
-    return response.status(200).json({ recommendation: result});
+    return response.status(200).json({ recommendation: result });
   } catch (error) {
     console.log(error);
     return response
