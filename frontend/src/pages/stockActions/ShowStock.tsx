@@ -13,6 +13,7 @@ const ShowStock = () => {
 
   const [stock, setStock] = useState({});
   const [priceDiff, setPriceDiff] = useState('');
+  const [geminiSuggestion, setGeminiSuggestion] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [portfolioForm, setPortfolioForm] = useState(false);
@@ -60,6 +61,7 @@ const ShowStock = () => {
   useEffect(() => {
     if (stock !==  null) {
       findDifference();
+      callGemini();
     }
   }, [stock])
 
@@ -69,6 +71,15 @@ const ShowStock = () => {
       setPriceDiff(`(-$${Math.abs(difference).toFixed(2)})`)
     } else {
       setPriceDiff(`(+$${Math.abs(difference).toFixed(2)})`)
+    }
+  }
+
+  const callGemini = async () => {
+    const response = await axios.get(`http://localhost:5555/stocks/tickerrec/${ticker}`);
+    if (response && response.data) {
+      const { data } = response;
+      console.log(data.recommendation)
+      // setGeminiSuggestion
     }
   }
 

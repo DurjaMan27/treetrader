@@ -1,6 +1,7 @@
 import express from 'express';
 import { Stock } from '../models/stockModel.js';
 import yahooFinance from 'yahoo-finance2';
+import executePrompt from '../gemini/gemini.js';
 
 const router = express.Router();
 
@@ -68,6 +69,28 @@ router.get('/tickerdata/:ticker', async (request, response) => {
     console.log("here is the error")
     console.log(error.message)
     return response.status(200).json({ name: 'error' })
+  }
+})
+
+router.get('/tickerrec/:ticker', async (request, response) => {
+  try {
+    const { ticker } = request.params;
+
+    if (
+      !request.body.data
+    ) {
+      return response.status(400).send({
+        message: "send all required fields: ticker data"
+      });
+    }
+
+    const data = request.body.data;
+    const result = await executePrompt(ticker, data);
+
+    return response.status(200).json({ recommendation: result});
+  } catch (error) {
+    console.log(error);
+    return response
   }
 })
 
