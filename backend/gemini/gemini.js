@@ -21,7 +21,6 @@ const executePrompt = async (tickerInput) => {
 
     const result = await model.generateContent(formatted.content.toString());
     const response = await result.response
-    console.log(response.text());
     return response.text();
   } catch (error) {
     console.error('Error executing prompt:', error);

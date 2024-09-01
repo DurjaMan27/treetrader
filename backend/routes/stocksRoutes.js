@@ -66,7 +66,6 @@ router.get('/tickerdata/:ticker', async (request, response) => {
 
     return response.status(200).json({ data: data })
   } catch (error) {
-    console.log("here is the error")
     console.log(error.message)
     return response.status(200).json({ name: 'error' })
   }
@@ -77,10 +76,6 @@ router.get('/tickerrec/:ticker', async (request, response) => {
     const { ticker } = request.params;
 
     const result = await executePrompt(ticker);
-
-    console.log("here is result tho");
-    console.log(result);
-
     return response.status(200).json({ recommendation: result });
   } catch (error) {
     console.log(error);
@@ -150,7 +145,6 @@ router.delete('/:id', async (request, response) => {
 
 router.post('/addAll', async (request, response) => {
   try {
-    console.log("still being called");
     if (
       !request.body.tickers
     ) {
@@ -188,7 +182,6 @@ router.post('/addAll', async (request, response) => {
 
         const currPrice = priceData[priceData.length - 1].adjClose.toFixed(2);
         const lastPrice = priceData[priceData.length - 2].adjClose.toFixed(2);
-        console.log("Updating...", request.body.tickers[i]);
 
         const newStock = {
           name: name,
@@ -199,7 +192,6 @@ router.post('/addAll', async (request, response) => {
         };
         const stock = await Stock.create(newStock);
       } else {
-        console.log("found");
         const updatedAt = new Date(findingStock.updatedAt);
         const current = new Date();
 
@@ -207,7 +199,6 @@ router.post('/addAll', async (request, response) => {
         current.setHours(0,0,0,0);
 
         if (updatedAt.getTime() !== current.getTime()) {
-          console.log("time doesn't match");
           const priceData = await yahooFinance.historical(request.body.tickers[i], {
             period1: "2024-08-19",
             interval: "1d",
@@ -242,9 +233,6 @@ router.post('/addAll', async (request, response) => {
 
 router.get('/setofTickers', async (request, response) => {
   try {
-    // console.log("here we go!!!")
-    // console.log(request)
-    // return response.status(200).json({ message: "hello"})
     let stockList = []
     for(let i = 0; i < request.query.tickers.length; i++) {
       const stock = await Stock.findOne({ ticker: request.query.tickers[i] });

@@ -51,8 +51,6 @@ const ShowStock = () => {
     const response = await axios.get(`http://localhost:5555/stocks/ticker/${ticker}`);
     if (response && response.data) {
       const { data } = response;
-      console.log("here is the data")
-      console.log(data);
       if (data.stock.name === 'error') {
         setErrorMessage('Sorry, the ticker you are looking for does not exist. Please refine your search criteria.');
       } else {
@@ -80,7 +78,6 @@ const ShowStock = () => {
 
   const findDifference = async () => {
     const difference = stock.currPrice - stock.lastPrice;
-    console.log(difference)
     if (difference < 0) {
       setPriceDiff(`(-$${Math.abs(difference).toFixed(2)})`)
     } else {
@@ -89,7 +86,6 @@ const ShowStock = () => {
   }
 
   const callGemini = async () => {
-    console.log("calling gemini now")
     const response = await axios.get(`http://localhost:5555/stocks/tickerrec/${ticker}`);
     if (response && response.data) {
       const { data } = response;

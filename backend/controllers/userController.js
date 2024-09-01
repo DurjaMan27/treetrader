@@ -48,8 +48,6 @@ const registerUser = asyncHandler(async (request, response) => {
 
 const authUser = asyncHandler( async (request, response) => {
   const { email, password } = request.body;
-  console.log("BODY")
-  console.log(request.body);
 
   const user = await User.findOne({ email: email });
 

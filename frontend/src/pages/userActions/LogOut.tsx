@@ -7,28 +7,10 @@ const navigate = useNavigate();
 const Logout = () => {
 
   const navigate = useNavigate();
-  // const context = useContext(UserContext);
-  // const { signedIn, setSignedIn } = context;
-
-  console.log("got context")
 
   localStorage.removeItem("userInfo");
 
-  console.log("removed from storage");
-
-  // setSignedIn({
-  //   signedIn: false,
-  //   data: {
-  //     username: "",
-  //     email: "",
-  //   }
-  // })
-
-  console.log("changed sign in");
-
   navigate('/');
-
-  console.log("Back to home");
 }
 
 export default Logout;

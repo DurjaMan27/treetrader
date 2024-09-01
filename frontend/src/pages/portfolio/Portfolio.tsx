@@ -26,8 +26,6 @@ const Portfolio = () => {
       })
       if (response && response.data) {
         const { data } = response;
-        console.log(data);
-        console.log(data.portfolio);
         setPortfolio(data.portfolio);
         setTotalFunds(data.totalFunds);
       }
@@ -44,9 +42,6 @@ const Portfolio = () => {
 
   const addFundsHandler = async (e) => {
     e.preventDefault();
-    console.log("here is what we are");
-    console.log(addFunds);
-    console.log(typeof(addFunds))
     if (signedIn.signedIn) {
       const config = {
         headers: {

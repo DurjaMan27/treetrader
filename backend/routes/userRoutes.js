@@ -100,7 +100,6 @@ router.get('/watchlist', async (request, response) => {
 
     return response.status(200).json({watchlist: user.stocks.watching})
   } catch (error) {
-      // console.log(error.message)
       response.status(500).send({ message: error.message })
   }
 })
@@ -117,8 +116,6 @@ router.post('/addFunds', async (request, response) => {
     }
 
     const { username, addingFunds } = request.body;
-    console.log("adding Funds");
-    console.log(addingFunds)
 
     const user = await User.findOne({ username: username})
 
@@ -179,14 +176,6 @@ router.post('/portfolio', async (request, response) => {
           new: true
         }
       );
-  
-      if(!result) {
-        console.log("lmao you failed");
-        console.log(user.stocks.portfolio)
-      } else {
-        console.log("updated successfully")
-        console.log(user.stocks.portfolio)
-      }
     } else {
       const addingPackage = {
         ticker: ticker,
@@ -212,7 +201,6 @@ router.post('/portfolio', async (request, response) => {
       if(!result) {
         return response.status(404).json({ message: "Stock not found" });
       }
-      console.log("wow it actually worked -> added to portfolio")
     }
   } else if (action === 'sell') {
     if(stock) {
@@ -248,14 +236,7 @@ router.post('/portfolio', async (request, response) => {
             new: true
           }
         );
-    
-        if(!result) {
-          console.log("lmao you failed");
-          console.log(user.stocks.portfolio)
-        } else {
-          console.log("updated successfully")
-          console.log(user.stocks.portfolio)
-        }
+  
       }
     } else {
       return response.status(404).json({ message: "Stock not found"})
