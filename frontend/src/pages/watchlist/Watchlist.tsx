@@ -53,7 +53,7 @@ const Watchlist = () => {
     <div className="all-stocks-section">
       <div className="top-level">
         <div className="title">
-          <h1 className='title-text'>All Watched Stocks</h1>
+          <h1 className='title-text'>All Watchlist Stocks</h1>
         </div>
         <div className="filter-bar">
           <input
