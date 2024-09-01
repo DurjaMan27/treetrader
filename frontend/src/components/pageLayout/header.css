@@ -16,7 +16,6 @@
   transition: font-size 0.2s ease;
 }
 .navbar-links a:hover, .navbar-links button:hover {
-  font-size: 25px;
   color: white;
 }
 
@@ -34,4 +33,18 @@
 .user-message {
   text-align: right;
   padding-right: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-icon {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-icon > strong {
+  padding-right: 20%;
+  font-size: 20px;
 }

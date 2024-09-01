@@ -78,6 +78,9 @@ router.get('/tickerrec/:ticker', async (request, response) => {
 
     const result = await executePrompt(ticker);
 
+    console.log("here is result tho");
+    console.log(result);
+
     return response.status(200).json({ recommendation: result });
   } catch (error) {
     console.log(error);

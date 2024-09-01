@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
+import { CgProfile } from 'react-icons/cg';
 import './header.css';
 
 
@@ -41,7 +42,10 @@ const Header = () => {
       </nav>
       <div className="user-message">
         { signedIn.signedIn ? (
-          <p>Logged in as <strong>{ signedIn.data.username }</strong>.</p>
+          <div className='profile-icon'>
+            <strong>{ signedIn.data.username }</strong>
+            <CgProfile size={64}/>
+          </div>
         ) : (
           <p></p>
         )}

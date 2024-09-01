@@ -15,6 +15,7 @@ const ShowStock = () => {
 
   const [stock, setStock] = useState({});
   const [priceDiff, setPriceDiff] = useState('');
+  const [generatedSuggestion, setGeneratedSuggestion] = useState(false);
   const [geminiSuggestion, setGeminiSuggestion] = useState<StringArray>(['', '', '']);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -61,11 +62,17 @@ const ShowStock = () => {
   }
 
   useEffect(() => {
-    if (stock !==  null) {
-      console.log('here is the stock');
-      console.log(stock);
+    setGeneratedSuggestion(false);
+    setErrorMessage('');
+    findStock();
+    getGraphData();
+  }, [])
+
+  useEffect(() => {
+    if (stock !==  null && !generatedSuggestion) {
       findDifference();
       callGemini();
+      setGeneratedSuggestion(true);
     }
   }, [stock])
 
@@ -83,9 +90,7 @@ const ShowStock = () => {
     const response = await axios.get(`http://localhost:5555/stocks/tickerrec/${ticker}`);
     if (response && response.data) {
       const { data } = response;
-      console.log(data.recommendation);
       const lines = data.recommendation.split('\n')
-      console.log(lines)
       let temp = ['', '', ''];
       for(let i = 0; i < lines.length; i++) {
         if(lines[i].toLowerCase().startsWith('ticker:')) {
@@ -96,7 +101,6 @@ const ShowStock = () => {
           temp[2] = lines[i].slice(lines[i].toLowerCase().indexOf('ticker:') + 'explanation: '.length + 1).trim();
         }
       }
-      console.log(temp);
       setGeminiSuggestion(temp);
     }
   }
@@ -118,11 +122,15 @@ const ShowStock = () => {
     }
   }
 
-  useEffect(() => {
-    setErrorMessage('');
-    findStock();
-    getGraphData();
-  }, [])
+  const getColor = () => {
+    if(geminiSuggestion[1] === '') {
+      return 'black';
+    } else if(geminiSuggestion[1].toUpperCase() === 'BUY') {
+      return 'green';
+    } else if(geminiSuggestion[1].toUpperCase() === 'SELL') {
+      return 'red';
+    }
+  }
 
 
   return (
@@ -143,7 +151,7 @@ const ShowStock = () => {
                   <h1>Gemini's Suggestion</h1>
                 </div>
                 <div className='gemini-recommendation'>
-                  <h1>{ geminiSuggestion[1].toUpperCase() }</h1>
+                  <h1 style={{color:  getColor()}}>{ geminiSuggestion[1].toUpperCase() }</h1>
                 </div>
                 <div className='gemini-explanation'>
                   <h1>{ geminiSuggestion[2] }</h1>

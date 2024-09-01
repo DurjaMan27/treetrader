@@ -1,9 +1,18 @@
 .staples {
-  display: block;
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
-  padding-left: 5%;
+  /* padding-left: 5%; */
   align-items: center;
+  justify-content: center;
   height: 80vh;
+
+  width: 110%;
+}
+
+.big-branch-title {
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .message {
@@ -11,54 +20,69 @@
 }
 
 .mover-singular-stock-red {
-  border: 1px solid black;
   display: flex;
+  flex-direction: row;
   margin: 1%;
   padding: 1%;
-  width: 95%;
-  height: auto;
+  width: 45vh;
+  height: 8vh;
 
   justify-content: space-between;
   align-items: center;
 
   background-color: #F2A8A8;
+  border: 1px black solid;
 }
 
 .mover-singular-stock-green {
-  border: 1px solid black;
   display: flex;
+  flex-direction: row;
   margin: 1%;
   padding: 1%;
-  width: 95%;
-  height: auto;
+  width: 45vh;
+  height: 8vh;
 
   justify-content: space-between;
   align-items: center;
 
-  background-color: #88D179;
+  background-color: #6dbf2f;
+  border: 1px black solid;
 }
+
+.mover-singular-stock-green:hover, .mover-singular-stock-red:hover {
+  cursor: pointer;
+}
+
+.ticker-name {
+  text-align: left;
+  font-size: 42px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.price-values {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+
+  width: 48%;
+}
+
+.current-price-moving {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 
 .price-difference {
   border: 1px black solid;
   border-radius: 30%;
 
   text-align: left;
-  /* align-items: left; */
-
-  /* display: flex;
-  align-items: center;
-
-  padding: 20%;
-  padding-right: 100%; */
   width: auto;
   height: auto;
 
   background-color: white;
-}
-
-.ticker-name {
-  text-align: left;
-  font-size: 40px;
-  border: 1px black solid;
-  margin: 0;
 }
