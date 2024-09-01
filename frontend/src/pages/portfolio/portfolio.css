@@ -75,22 +75,9 @@
   color: white;
 }
 
-.hide-message {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-
-  padding-top: 5px;
-}
-
-
-.forgot-password > button {
-  text-decoration: underline;
-}
-
 .portfolio-stocks-list {
-  width: 60%;
-  margin: 2% 4% 2% 2%;
+  width: 64%;
+  margin: 2% 1% 2% 2%;
 
   height: 75vh;
   overflow-y: auto;
@@ -108,16 +95,29 @@
   align-items: center;
 
   height: 20vh;
+  overflow: visible;
 }
+
+
+
+
+
+
 
 .buy-or-sell-buttons-section {
   border: 1px black solid;
   border-right-color: transparent;
 
+  margin-right: -2%;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   height: 20vh;
-  width: 20%;
+  overflow: auto;
+  width: 45vh;
 }
 
 .buy-or-sell-buttons {
@@ -125,4 +125,109 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  min-height: 100%;
 }
+
+.buy-or-sell-buttons > button {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%; /* Full-width button */
+  margin-top: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  height: auto;
+}
+
+.buy-or-sell-buttons > button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift the button on hover */
+  color: white;
+}
+
+
+
+
+
+
+.main-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+  width: 72vh;
+}
+
+.main-information:hover {
+  cursor: pointer;
+}
+
+.main-information .left-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-information .right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.portfolio-ticker-name {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+
+  color: #007bff;
+
+  text-align: center;
+}
+
+.date-purchased {
+  color: gray;
+  font-size: 16px;
+  margin: 5px 0 0 0;
+}
+
+.portfolio-num-shares {
+  font-weight: bold;
+  font-size: 26px;
+  margin: 5px 0 0 0;
+}
+
+
+.sell-shares-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  background-color: #f4f4f9;
+  padding: 10px;
+}
+
+.sell-shares-form-container form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 25vh;
+  max-width: 25vh;
+}
+
+.sell-shares-forms-container .form-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.form-control {
+
+}
+
+
+
+

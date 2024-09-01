@@ -69,15 +69,18 @@ const ShowStock = () => {
   }, [])
 
   useEffect(() => {
-    if (stock !==  null && !generatedSuggestion) {
+    if (stock !==  null) {
       findDifference();
-      callGemini();
-      setGeneratedSuggestion(true);
+      if (!generatedSuggestion) {
+        callGemini();
+        setGeneratedSuggestion(true);
+      }
     }
   }, [stock])
 
   const findDifference = async () => {
     const difference = stock.currPrice - stock.lastPrice;
+    console.log(difference)
     if (difference < 0) {
       setPriceDiff(`(-$${Math.abs(difference).toFixed(2)})`)
     } else {

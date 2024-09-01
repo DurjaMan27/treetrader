@@ -136,11 +136,11 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
     <div>
       { buyMore || sellMore ? (
         sellMore ? (
-          <div>
+          <div className='sell-shares-form-container'>
             <Form onSubmit={handleSellSubmit}>
               <h1>{ message }</h1>
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Number of Shares to Sell</Form.Label>
+                <Form.Label>Shares to Sell</Form.Label>
                 <Form.Control
                   type="number"
                   min="1"
@@ -152,7 +152,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
                 </Form.Group>
 
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Total Amount Gained</Form.Label>
+                <Form.Label>Amount Gained</Form.Label>
                 <Form.Control
                   type="number"
                   value={totalPrice}
@@ -165,16 +165,15 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
                 <Oval visible={loading} height="80" width="80" color="#4fa94d"/>
               </Button>
             </Form>
-            <button onClick={handleBuyButton}>Buy Shares</button>
             <button onClick={closeButtons}>Close</button>
           </div>
         ) : (
-          <div>
+          <div className='buy-shares-form'>
             <Form onSubmit={handleBuySubmit}>
               <h1>{ message }</h1>
 
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Number of Shares to Purchase</Form.Label>
+                <Form.Label>Shares to Purchase</Form.Label>
                 <Form.Control
                   type="number"
                   min="1"
@@ -194,7 +193,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
               </Form.Group>
 
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Current Portfolio Funds</Form.Label>
+                <Form.Label>Portfolio Funds</Form.Label>
                 <Form.Control
                   type="number"
                   value={ totalFunds }
@@ -207,7 +206,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
                 <Oval visible={loading} height="80" width="80" color="#4fa94d"/>
               </Button>
             </Form>
-            <button onClick={handleSellButton}>Sell Shares</button>
             <button onClick={closeButtons}>Close</button>
           </div>
         )
