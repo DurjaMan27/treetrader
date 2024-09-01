@@ -1,31 +1,27 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { GEMINI_API_KEY } from '../config.js';
+// import { GEMINI_API_KEY } from '../config.js';
 import {HumanMessagePromptTemplate} from '@langchain/core/prompts';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url'
 
-const executePrompt = async ({ tickerInput }) => {
+const executePrompt = async (tickerInput) => {
   try {
-
-    // Instantiation using from_template (recommended)
-    const text = fs.readFile('./gemini_prompt.md');
-    // const prompt = new PromptTemplate({
-    //     inputVariables: ["ticker", "data"],
-    //     template: template,
-    // });
-    // const formattedPrompt = prompt.format({ ticker: ticker, data: data });
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+    const text = fs.readFileSync(path.join(__dirname, 'gemini_prompt.md'), 'utf-8');
 
     const message = HumanMessagePromptTemplate.fromTemplate(text);
     const formatted = await message.format({ ticker: tickerInput });
-
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
     });
 
-    const result = await model.generateContext(formatted);
+    const result = await model.generateContent(formatted.content.toString());
     const response = await result.response
-    return response.text;
+    return response.text();
   } catch (error) {
     console.error('Error executing prompt:', error);
     return null;

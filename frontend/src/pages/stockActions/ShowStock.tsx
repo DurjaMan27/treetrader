@@ -11,9 +11,11 @@ import './showstock.css';
 
 const ShowStock = () => {
 
+  type StringArray = string[];
+
   const [stock, setStock] = useState({});
   const [priceDiff, setPriceDiff] = useState('');
-  const [geminiSuggestion, setGeminiSuggestion] = useState('');
+  const [geminiSuggestion, setGeminiSuggestion] = useState<StringArray>(['', '', '']);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [portfolioForm, setPortfolioForm] = useState(false);
@@ -60,6 +62,8 @@ const ShowStock = () => {
 
   useEffect(() => {
     if (stock !==  null) {
+      console.log('here is the stock');
+      console.log(stock);
       findDifference();
       callGemini();
     }
@@ -79,8 +83,21 @@ const ShowStock = () => {
     const response = await axios.get(`http://localhost:5555/stocks/tickerrec/${ticker}`);
     if (response && response.data) {
       const { data } = response;
-      console.log(data.recommendation)
-      // setGeminiSuggestion
+      console.log(data.recommendation);
+      const lines = data.recommendation.split('\n')
+      console.log(lines)
+      let temp = ['', '', ''];
+      for(let i = 0; i < lines.length; i++) {
+        if(lines[i].toLowerCase().startsWith('ticker:')) {
+          temp[0] = lines[i].slice(lines[i].toLowerCase().indexOf('ticker:') + 'ticker: '.length + 1).trim();
+        } else if(lines[i].toLowerCase().startsWith('recommendation:')) {
+          temp[1] = lines[i].slice(lines[i].toLowerCase().indexOf('ticker:') + 'recommendation: '.length + 1).trim();
+        } else if(lines[i].toLowerCase().startsWith('explanation:')) {
+          temp[2] = lines[i].slice(lines[i].toLowerCase().indexOf('ticker:') + 'explanation: '.length + 1).trim();
+        }
+      }
+      console.log(temp);
+      setGeminiSuggestion(temp);
     }
   }
 
@@ -120,53 +137,71 @@ const ShowStock = () => {
             </div>
           ) : (
             <div className='show-stock'>
-              <div className='all-show-stock-content'>
-                <div className='left-side-stock-info'>
-                  <div className='stock-information-points'>
-                    <div className='stock-ticker'>
-                      <span> { stock.ticker }</span>
-                    </div>
-                    <div className='stock-company'>
-                      <span>({ stock.name })</span>
-                    </div>
-                    <div className='stock-price-and-difference'>
-                      <span>${ stock.currPrice } </span>
-                      <span className={ stock.currPrice < stock.lastPrice ? 'daily-change-negative' : 'daily-change-positive'}>{ priceDiff }</span>
-                    </div>
-                  </div>
+
+              <div className='gemini-suggestion-container'>
+                <div className='gemini-label'>
+                  <h1>Gemini's Suggestion</h1>
                 </div>
-                { signedIn.signedIn ? (
-                  <div className='portfolio-options-wrapper'>
-                    { portfolioForm ? (
-                      <div className='portfolio-form-wrapper'>
-                        <PortfolioForm ticker={stock} />
-                        <button onClick={togglePortfolioForm}>Close Form</button>
-                      </div>
-                    ) : (
-                      <button onClick={togglePortfolioForm}>Add to Portfolio</button>
-                    )}
-                  </div>
-                ) : (
-                  <div className='sign-in-to-view'>
-                    <h1>Sign-in to add {stock.ticker} to your portfolio.</h1>
-                  </div>
-                )}
+                <div className='gemini-recommendation'>
+                  <h1>{ geminiSuggestion[1].toUpperCase() }</h1>
+                </div>
+                <div className='gemini-explanation'>
+                  <h1>{ geminiSuggestion[2] }</h1>
+                </div>
               </div>
 
-              <div className="graph-container">
-                <ReactApexChart
-                  options={optionsConstant}
-                  series={
-                    [
-                      {
-                        data: chartData
-                      }
-                    ]
-                  }
-                  type="candlestick"
-                  height="400"
-                  width="800"
-                />
+              <div className='stock-and-graph'>
+                <div className='all-show-stock-content'>
+                  <div className='left-side-stock-info'>
+
+                    <div className='stock-information-points'>
+                      <div className='stock-ticker'>
+                        <span> { stock.ticker }</span>
+                      </div>
+                      <div className='stock-company'>
+                        <span>({ stock.name })</span>
+                      </div>
+                      <div className='stock-price-and-difference'>
+                        <span>${ stock.currPrice } </span>
+                        <span className={ stock.currPrice < stock.lastPrice ? 'daily-change-negative' : 'daily-change-positive'}>{ priceDiff }</span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  { signedIn.signedIn ? (
+                    <div className='portfolio-options-wrapper'>
+                      { portfolioForm ? (
+                        <div className='portfolio-form-wrapper'>
+                          <PortfolioForm ticker={stock} />
+                          <button onClick={togglePortfolioForm}>Close Form</button>
+                        </div>
+                      ) : (
+                        <button onClick={togglePortfolioForm}>Add to Portfolio</button>
+                      )}
+                    </div>
+                  ) : (
+                    <div className='sign-in-to-view'>
+                      <h1>Sign-in to add {stock.ticker} to your portfolio.</h1>
+                    </div>
+                  )}
+                </div>
+
+                <div className="graph-container">
+                  <ReactApexChart
+                    options={optionsConstant}
+                    series={
+                      [
+                        {
+                          data: chartData
+                        }
+                      ]
+                    }
+                    type="candlestick"
+                    height="400"
+                    width="800"
+                  />
+                </div>
               </div>
             </div>
           )
