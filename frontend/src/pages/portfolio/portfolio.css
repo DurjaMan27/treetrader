@@ -200,10 +200,19 @@
 }
 
 
+.form-container-overall {
+  position: relative;
+  top: 0;
+
+  height: auto;
+  overflow: auto;
+}
+
+
 .sell-shares-form-container {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-end;
   align-items: center;
 
   background-color: #f4f4f9;
@@ -215,19 +224,61 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 25vh;
+  width: 27vh;
   max-width: 25vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.sell-shares-forms-container .form-label {
+.sell-shares-form-container .form-label {
   font-size: 14px;
   color: #555;
 }
 
 .form-control {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
 
+.sell-shares-form-container > button {
+  text-decoration: underline;
 }
 
 
 
 
+.buy-shares-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  background-color: #f4f4f9;
+  padding: 10px;
+}
+
+.buy-shares-form-container form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 27vh;
+  max-width: 25vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.buy-shares-form-container .form-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.buy-shares-form-container > button {
+  text-decoration: underline;
+}

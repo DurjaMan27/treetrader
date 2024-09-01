@@ -133,7 +133,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
   }
 
   return (
-    <div>
+    <div className='form-container-overall'>
       { buyMore || sellMore ? (
         sellMore ? (
           <div className='sell-shares-form-container'>
@@ -168,7 +168,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
             <button onClick={closeButtons}>Close</button>
           </div>
         ) : (
-          <div className='buy-shares-form'>
+          <div className='buy-shares-form-container'>
             <Form onSubmit={handleBuySubmit}>
               <h1>{ message }</h1>
 
@@ -184,7 +184,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
                 </Form.Group>
 
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Total Price</Form.Label>
+                <Form.Label>Total Price ($)</Form.Label>
                 <Form.Control
                   type="number"
                   value={ totalPrice }
@@ -193,16 +193,16 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
               </Form.Group>
 
               <Form.Group controlId="formBasicNumber">
-                <Form.Label>Portfolio Funds</Form.Label>
+                <Form.Label>Funds Available ($)</Form.Label>
                 <Form.Control
                   type="number"
-                  value={ totalFunds }
+                  value={ totalFunds.toFixed(2) }
                   readOnly
                 />
               </Form.Group>
 
               <Button variant="primary" type="submit">
-                Purchase Shares
+                Buy Shares
                 <Oval visible={loading} height="80" width="80" color="#4fa94d"/>
               </Button>
             </Form>
