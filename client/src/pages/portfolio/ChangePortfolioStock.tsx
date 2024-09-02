@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import UserContext from '../../components/context/UserContext';
 import { Oval } from 'react-loader-spinner';
@@ -20,6 +21,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
   const [numShares, setNumShares] = useState(0);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTotalPrice(numShares * currPrice);
@@ -102,6 +104,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
       setBuyMore(false);
       setSellMore(false);
     }
+    navigate('/portfolio');
   }
 
   const handleBuySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -134,8 +137,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
       setBuyMore(false);
       setSellMore(false);
     }
-
-
+    navigate('/portfolio');
   }
 
   return (
