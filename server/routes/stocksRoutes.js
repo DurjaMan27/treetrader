@@ -61,7 +61,7 @@ router.get('/tickerdata/:ticker', async (request, response) => {
 
     let data = []
     for(let i = 0; i < result.length; i++) {
-      data.push({ x: result[i].date, y: [result[i].open, result[i].high, result[i].low, result[i].close]})
+      data.push({ x: new Date(result[i].date), y: [result[i].open, result[i].high, result[i].low, result[i].close]})
     }
 
     return response.status(200).json({ data: data })

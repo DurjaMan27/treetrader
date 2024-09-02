@@ -5,6 +5,7 @@ import Spinner from '../../components/Spinner';
 import UserContext from '../../components/context/UserContext';
 import PortfolioForm from '../../components/PortfolioForm';
 import ReactApexChart from 'react-apexcharts';
+import { ApexOptions } from 'apexcharts';
 import './showstock.css';
 
 const ShowStock: React.FC = () => {
@@ -21,6 +22,13 @@ const ShowStock: React.FC = () => {
     updatedAt: Date,
   }
 
+  interface ChartDataPoint {
+    x: Date,
+    y: [
+      number, number, number, number
+    ]
+  }
+
   const [stock, setStock] = useState<StockDataStructure>({name:'', ticker:'', currPrice:-1, lastPrice:-1, industry:'', createdAt:new Date(), updatedAt:new Date()});
   const [priceDiff, setPriceDiff] = useState('');
   const [generatedSuggestion, setGeneratedSuggestion] = useState(false);
@@ -28,7 +36,7 @@ const ShowStock: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [portfolioForm, setPortfolioForm] = useState(false);
-  const [chartData, setChartData] = useState({})
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([{x: new Date(), y: [0, 1, 0, 1]}])
   const { ticker } = useParams();
 
   const context = useContext(UserContext)
@@ -37,7 +45,7 @@ const ShowStock: React.FC = () => {
   }
   const { signedIn } = context
 
-  const optionsConstant = {
+  const optionsConstant: ApexOptions = {
     chart: {
       animations: {
         enabled: false,
