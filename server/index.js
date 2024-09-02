@@ -10,6 +10,7 @@ import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import dotenv from 'dotenv';
 
 const app = express();
+dotenv.config();
 
 // middleware for parsing request body
 app.use(express.json());
