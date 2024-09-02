@@ -23,8 +23,12 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
   const [refresh, setRefresh] = useState(false);
 
   const triggerRefresh = () => {
-    setRefresh(true);
-    setRefresh(false);
+    if(!refresh) {
+      setRefresh(true);
+      setRefresh(false);
+    } else {
+      setRefresh(false);
+    }
   }
 
 
