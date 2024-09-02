@@ -93,7 +93,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
         action: "sell",
       }
 
-      const response = await axios.post('http://treetrader-backend.vercel.app/users/portfolio', dataPackage, config)
+      const response = await axios.post('https://treetrader-backend.vercel.app/users/portfolio', dataPackage, config)
       if (response && response.data) {
         setLoading(false);
       }
@@ -124,7 +124,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
         action: "buy",
       }
 
-      const response = await axios.post('http://treetrader-backend.vercel.app/users/portfolio', dataPackage, config)
+      const response = await axios.post('https://treetrader-backend.vercel.app/users/portfolio', dataPackage, config)
       if (response && response.data) {
         setLoading(false);
       }
