@@ -10,6 +10,7 @@ interface StockProps {
     numShares: number,
     datePurchased: Date,
     priceInvested: number,
+    currPrice: number,
   }
 }
 
@@ -18,6 +19,13 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
   const [currPrice, setCurrPrice] = useState(0);
   const [gainLoss, setGainLoss] = useState("");
   const [colorGainLoss, setColorGainLoss] = useState('black')
+
+  const [refresh, setRefresh] = useState(false);
+
+  const triggerRefresh = () => {
+    setRefresh(true);
+    setRefresh(false);
+  }
 
 
   const findCurrPrice = async () => {
@@ -63,7 +71,7 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
         </div>
       </Link>
       <div className='buy-or-sell-buttons-section'>
-        <ChangeStock ticker={ticker.ticker} currShares={ticker.numShares} currPrice={currPrice} />
+        <ChangeStock ticker={ticker.ticker} currShares={ticker.numShares} currPrice={currPrice} functionRefresh={triggerRefresh} />
       </div>
     </div>
   )

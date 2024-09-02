@@ -9,9 +9,10 @@ interface Ticker {
   ticker: string,
   currShares: number,
   currPrice: number,
+  functionRefresh: Function,
 }
 
-const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
+const ChangeStock: React.FC<Ticker> = ({ ticker, currShares, functionRefresh }) => {
 
   const [currPrice, setCurrPrice] = useState(0);
   const [buyMore, setBuyMore] = useState(false);
@@ -105,6 +106,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
       setSellMore(false);
     }
     navigate('/portfolio');
+    functionRefresh();
   }
 
   const handleBuySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -138,6 +140,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
       setSellMore(false);
     }
     navigate('/portfolio');
+    functionRefresh();
   }
 
   return (
