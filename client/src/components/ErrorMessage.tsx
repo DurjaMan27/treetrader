@@ -1,8 +1,12 @@
 import { Alert } from 'react-bootstrap';
 
-const ErrorMessage = ({ variant = "info", children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const ErrorMessage: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Alert variant={variant} style = {{ fontSize: 20 }}>
+    <Alert variant={"info"} style = {{ fontSize: 20 }}>
       <strong>{ children }</strong>
     </Alert>
   );

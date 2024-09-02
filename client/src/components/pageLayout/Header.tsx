@@ -8,8 +8,11 @@ import './header.css';
 const Header = () => {
 
   const navigate = useNavigate();
-  const context = useContext(UserContext);
-  const { signedIn, setSignedIn } = context;
+  const context = useContext(UserContext)
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn, setSignedIn } = context
 
   const Logout = () => {
     localStorage.removeItem("userInfo");

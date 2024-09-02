@@ -5,11 +5,26 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import './homelayout.css';
 
+interface StockDataStructure {
+  stock: {
+    name: string,
+    ticker: string,
+    currPrice: number,
+    lastPrice: number,
 
-const StockSingleCard = ({ stock }) => {
+    industry: string,
+    createdAt: Date,
+    updatedAt: Date,
+  }
+}
+
+const StockSingleCard: React.FC<StockDataStructure> = ({ stock }) => {
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
   const [watching, setWatching] = useState(false);
   const [iconClass, setIconClass] = useState('rgb(196, 196, 196)');
@@ -65,7 +80,6 @@ const StockSingleCard = ({ stock }) => {
 
         const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
-          const { data } = response;
           setWatching(false);
         }
       } else {
@@ -76,7 +90,6 @@ const StockSingleCard = ({ stock }) => {
 
         const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
-          const { data } = response;
           setWatching(true);
         }
       }
@@ -85,7 +98,7 @@ const StockSingleCard = ({ stock }) => {
 
   return (
     <div
-      key={stock._id}
+      key={stock.name}
       className={stock.currPrice < stock.lastPrice ? 'all-stocks-negative' : 'all-stocks-positive'}
     >
       <Link to={`stocks/details/${stock.ticker}`}>

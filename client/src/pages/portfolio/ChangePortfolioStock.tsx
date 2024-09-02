@@ -38,7 +38,10 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
   }, [])
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
   const findFunds = async () => {
     if(signedIn.signedIn) {
@@ -92,7 +95,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
 
       const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
       if (response && response.data) {
-        const { data } = response;
         setLoading(false);
       }
       setBuyMore(false);
@@ -124,7 +126,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
 
       const response = await axios.post('http://localhost:5555/users/portfolio', dataPackage, config)
       if (response && response.data) {
-        const { data } = response;
         setLoading(false);
       }
       setBuyMore(false);

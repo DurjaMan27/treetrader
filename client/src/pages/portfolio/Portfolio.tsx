@@ -7,9 +7,11 @@ import SingularStock from './SingularPortfolioStock';
 import './portfolio.css';
 
 const Portfolio = () => {
-
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
   const [portfolio, setPortfolio] = useState([]);
   const [totalFunds, setTotalFunds] = useState(0);
@@ -40,7 +42,7 @@ const Portfolio = () => {
     }
   }
 
-  const addFundsHandler = async (e) => {
+  const addFundsHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (signedIn.signedIn) {
       const config = {
