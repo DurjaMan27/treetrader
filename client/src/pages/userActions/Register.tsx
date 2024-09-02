@@ -91,8 +91,8 @@ const RegisterScreen = () => {
   return (
     <div className='login-container'>
       <div>Register Below</div>
-      { error != '' && <ErrorMessage variant='danger'>{ error }</ErrorMessage> }
-      { message && <ErrorMessage variant='danger'>{ message }</ErrorMessage> }
+      { error != '' && <ErrorMessage>{ error }</ErrorMessage> }
+      { message && <ErrorMessage>{ message }</ErrorMessage> }
       { loading && <Spinner /> }
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='name' className="mb-3">

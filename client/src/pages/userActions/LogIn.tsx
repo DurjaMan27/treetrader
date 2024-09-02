@@ -77,7 +77,7 @@ const LoginScreen = () => {
   return (
     <div className='login-container'>
       <div>Login Screen</div>
-      { error && <ErrorMessage variant="danger">{ error }</ErrorMessage>}
+      { error && <ErrorMessage>{ error }</ErrorMessage>}
       { loading && <Spinner /> }
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicEmail" className="mb-3">

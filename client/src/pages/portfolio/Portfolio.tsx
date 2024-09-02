@@ -119,7 +119,7 @@ const Portfolio = () => {
             ) : (
               <div className='portfolio-stocks-list'>
                 <ul>
-                  { portfolio.map((ticker, index) => (
+                  { portfolio.map((ticker) => (
                     <li>
                       <div key={ticker} style={{border: '1px black solid'}}>
                         <SingularStock ticker={ticker} />

@@ -10,6 +10,11 @@ import TopMovers from './homepage/TopMovers';
 interface stock {
   name: string,
   ticker: string,
+  currPrice: number,
+  lastPrice: number,
+  industry: string,
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 const Home = () => {
