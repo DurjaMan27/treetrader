@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
 import UserContext from './context/UserContext';
 import axios from 'axios';
@@ -23,9 +22,12 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
   const [loading, setLoading] = useState(false);
   const [totalFunds, setTotalFunds] = useState(0);
   const [message, setMessage] = useState('');
+
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
-  const navigate = useNavigate();
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
   useEffect(() => {
     setTotalPrice(numShares * ticker.currPrice);
@@ -70,7 +72,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
 
         const response = await axios.post('http://treetrader.vercel.app/users/portfolio', dataPackage, config)
         if (response && response.data) {
-          const { data } = response;
+          console.log(response)
           setLoading(false);
         }
       }

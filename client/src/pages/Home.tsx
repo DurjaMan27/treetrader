@@ -7,10 +7,15 @@ import Spinner from '../components/Spinner';
 import StocksCard from '../components/home/StocksCard';
 import TopMovers from './homepage/TopMovers';
 
+interface stock {
+  name: string,
+  ticker: string,
+}
+
 const Home = () => {
 
-  const [stocks, setStocks] = useState([]);
-  const [filteredStocks, setFilteredStocks] = useState([]);
+  const [stocks, setStocks] = useState<stock[]>([]);
+  const [filteredStocks, setFilteredStocks] = useState<stock[]>([]);
   const [loading, setLoading] = useState(false);
   // const [showType, setShowType] = useState('card');
   const [filterValue, setFilterValue] = useState('');
@@ -35,8 +40,8 @@ const Home = () => {
     } else {
       const lowercasedFilter = filterValue.toLowerCase();
       const filteredData = stocks.filter((stock) =>
-          stock.name.toLowerCase().includes(lowercasedFilter) ||
-          stock.ticker.toLowerCase().includes(lowercasedFilter)
+        stock.name.toLowerCase().includes(lowercasedFilter) ||
+        stock.ticker.toLowerCase().includes(lowercasedFilter)
       );
       setFilteredStocks(filteredData);
     }

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
@@ -15,14 +15,21 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { setSignedIn } = context
 
-  const submitHandler = async (e) => {
+  useEffect(() => {
+    setError('');
+  }, [])
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmpassword) {
@@ -68,23 +75,23 @@ const RegisterScreen = () => {
         navigate('/')
       } catch (error) {
         setLoading(false);
-        setError(error.message);
+        if (isError(error)) {
+          setError(error.message);
+        } else {
+          setError("An unknown error has occurred");
+        }
       }
     }
   }
 
-  // useEffect(() => {
-  //   if(registered) {
-  //     const navigate = useNavigate()
-  //     setRegistered(false);
-  //     navigate('/');
-  //   }
-  // }, [registered])
+  const isError = (error: unknown): error is Error => {
+    return error instanceof Error;
+  }
 
   return (
     <div className='login-container'>
       <div>Register Below</div>
-      { error && <ErrorMessage variant='danger'>{ error }</ErrorMessage> }
+      { error != '' && <ErrorMessage variant='danger'>{ error }</ErrorMessage> }
       { message && <ErrorMessage variant='danger'>{ message }</ErrorMessage> }
       { loading && <Spinner /> }
       <Form onSubmit={submitHandler}>

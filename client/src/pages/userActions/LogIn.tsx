@@ -16,9 +16,12 @@ const LoginScreen = () => {
   const navigate = useNavigate();
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { setSignedIn } = context
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const config = {
@@ -59,8 +62,16 @@ const LoginScreen = () => {
       navigate('/');
     } catch (error) {
       setLoading(false);
-      setError(error.message);
+      if (isError(error)) {
+        setError(error.message);
+      } else {
+        setError("An unknown error has occurred.");
+      }
     }
+  }
+
+  const isError = (error: unknown): error is Error => {
+    return error instanceof Error;
   }
 
   return (
@@ -103,54 +114,7 @@ const LoginScreen = () => {
         </Col>
       </Row>
     </div>
-
-          
-      
   );
 }
 
 export default LoginScreen;
-
-{/* <form onSubmit={submitHandler}>
-
-        <h3>Login Screen</h3>
-        { error && <ErrorMessage variant="danger">{ error }</ErrorMessage>}
-        { loading && <Spinner /> }
-
-        <div className="mb-3">
-          <label>Email Address</label>
-          <input
-            type="email"
-            value={email}
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-            className='form-control'
-          />
-        </div>
-
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-            className='form-control'
-          />
-        </div>
-
-        <div className='d-grid'>
-          <button type="submit" className='btn btn-primary'>
-            Submit
-          </button>
-        </div>
-        <p className='forgot-password text-right'>
-          New Customer? <Link to='/register'>Register Here</Link>
-        </p>
-      </form>
-      <Row className="py-3">
-        <Col className='forgot-password text-right'>
-          New Customer? <Link to="/register">Register Here</Link>
-        </Col>
-      </Row> 
-    </div>*/}

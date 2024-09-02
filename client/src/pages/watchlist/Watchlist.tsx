@@ -6,13 +6,26 @@ import StockSingleCardByTicker from '../../components/home/StockSingleCardByTick
 import Spinner from '../../components/Spinner';
 import './watchlist.css'
 
+interface stock {
+  name: string,
+  ticker: string,
+  currPrice: number,
+  lastPrice: number,
+  industry: string,
+  updatedAt: Date,
+  createdAt: Date,
+}
+
 const Watchlist = () => {
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
-  const [watching, setWatching] = useState([]);
-  const [filteredWatching, setFilteredWatching] = useState([]);
+  const [watching, setWatching] = useState<stock[]>([]);
+  const [filteredWatching, setFilteredWatching] = useState<stock[]>([]);
   const [loading, setLoading] = useState(false);
 
   const getWatchlist = async () => {
@@ -78,9 +91,17 @@ const Watchlist = () => {
               )
             ) : (
               <>
-                {watching.map((ticker, index) => (
-                  <StockSingleCardByTicker key={ticker} stockTicker={ticker}/>
-                ))}
+                { loading ? <Spinner /> :
+                  filterValue === '' ? (
+                    watching.map((ticker: stock) => (
+                      <StockSingleCardByTicker key={ticker.name} stockTicker={ticker}/>
+                    ))
+                  ) : (
+                    filteredWatching.map((ticker) => (
+                      <StockSingleCardByTicker key={ticker.name} stockTicker={ticker}/>
+                    ))
+                  )
+                }
               </>
 
             )}

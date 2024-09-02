@@ -7,11 +7,21 @@ import PortfolioForm from '../../components/PortfolioForm';
 import ReactApexChart from 'react-apexcharts';
 import './showstock.css';
 
-const ShowStock = () => {
+const ShowStock: React.FC = () => {
 
   type StringArray = string[];
+  interface StockDataStructure {
+    name: string,
+    ticker: string,
+    currPrice: number,
+    lastPrice: number,
 
-  const [stock, setStock] = useState({});
+    industry: string,
+    createdAt: Date,
+    updatedAt: Date,
+  }
+
+  const [stock, setStock] = useState<StockDataStructure>({name:'', ticker:'', currPrice:-1, lastPrice:-1, industry:'', createdAt:new Date(), updatedAt:new Date()});
   const [priceDiff, setPriceDiff] = useState('');
   const [generatedSuggestion, setGeneratedSuggestion] = useState(false);
   const [geminiSuggestion, setGeminiSuggestion] = useState<StringArray>(['', '', '']);
@@ -22,7 +32,10 @@ const ShowStock = () => {
   const { ticker } = useParams();
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
   const optionsConstant = {
     chart: {
@@ -58,10 +71,12 @@ const ShowStock = () => {
   }
 
   useEffect(() => {
+    setLoading(true);
     setGeneratedSuggestion(false);
     setErrorMessage('');
     findStock();
     getGraphData();
+    setLoading(false);
   }, [])
 
   useEffect(() => {

@@ -5,13 +5,40 @@ import axios from 'axios';
 import UserContext from '../context/UserContext';
 import '../../pages/watchlist/watchlist.css';
 
+interface StockPropDataStructure {
+  stockTicker: {
+    name: string,
+    ticker: string,
+    currPrice: number,
+    lastPrice: number,
 
-const StockSingleCardByTicker = ({ stockTicker }) => {
+    industry: string,
+    createdAt: Date,
+    updatedAt: Date,
+  }
+}
+
+interface StateVarStructure {
+  name: string,
+  ticker: string,
+  currPrice: number,
+  lastPrice: number,
+
+  industry: string,
+  createdAt: Date,
+  updatedAt: Date,
+}
+
+
+const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker }) => {
 
   const context = useContext(UserContext)
-  const { signedIn, setSignedIn } = context
+  if (! context) {
+    throw new Error('UserContext must be used within a User context provider')
+  }
+  const { signedIn } = context
 
-  const [stock, setStock] = useState({});
+  const [stock, setStock] = useState<StateVarStructure>({name:'', ticker:'', currPrice:-1, lastPrice:-1, industry:'', createdAt:new Date(), updatedAt: new Date()});
 
   useEffect(() => {
     getStockData();
@@ -85,7 +112,6 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
 
         const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
-          const { data } = response;
           setWatching(false);
         }
       } else {
@@ -96,7 +122,6 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
 
         const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
-          const { data } = response;
           setWatching(true);
         }
       }
@@ -105,7 +130,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
 
   return (
     <div
-      key={stock._id}
+      key={stock.name}
       className={stock.currPrice < stock.lastPrice ? 'all-stocks-negative' : 'all-stocks-positive'}
     >
       <Link to={`/stocks/details/${stock.ticker}`}>
