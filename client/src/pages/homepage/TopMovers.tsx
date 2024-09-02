@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import UserContext from '../../components/context/UserContext';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './topmovers.css';

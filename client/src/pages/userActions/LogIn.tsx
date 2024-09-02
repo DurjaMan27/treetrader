@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import Spinner from '../../components/Spinner.tsx';
 import ErrorMessage from '../../components/ErrorMessage.tsx';

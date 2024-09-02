@@ -1,8 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import UserContext from '../../components/context/UserContext';
-
-const navigate = useNavigate();
+import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {
 

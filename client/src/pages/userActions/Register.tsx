@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import ErrorMessage from '../../components/ErrorMessage';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import UserContext from '../../components/context/UserContext';
 import './user.css';
 

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import CreateStock from './pages/stockActions/CreateStock';
