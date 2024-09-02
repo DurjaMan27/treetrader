@@ -32,7 +32,7 @@ app.use('/tickers', tickersRoutes)
 app.use(notFound);
 app.use(errorHandler);
 
-mongoose.connect(process.env.mongoDBURL)
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log("App connected to database.");
     app.listen(process.env.PORT, () => {
