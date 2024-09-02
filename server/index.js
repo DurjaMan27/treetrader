@@ -15,8 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(cors(
   {
-    origin: ["https://treetrader-backend.vercel.app"],
-    methods: ["POST", "GET"],
+    origin: ["https://treetrader.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   }
 ));
