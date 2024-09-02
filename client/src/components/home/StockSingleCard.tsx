@@ -44,7 +44,7 @@ const StockSingleCard = ({ stock }) => {
 
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
-      const response = await axios.get('http://localhost:5555/users/watchlist', {
+      const response = await axios.get('http://treetrader.vercel.app/users/watchlist', {
         params: {
           username: signedIn.data.username,
         }
@@ -68,7 +68,7 @@ const StockSingleCard = ({ stock }) => {
           action: 'remove',
         }
 
-        const response = await axios.post(`http://localhost:5555/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           const { data } = response;
           setWatching(false);
@@ -79,7 +79,7 @@ const StockSingleCard = ({ stock }) => {
           action: 'add',
         }
 
-        const response = await axios.post(`http://localhost:5555/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           const { data } = response;
           setWatching(true);
