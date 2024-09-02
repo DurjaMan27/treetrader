@@ -52,7 +52,7 @@ const RegisterScreen = () => {
 
         setLoading(true);
 
-        const response = await axios.post('http://localhost:5555/users/register', dataPackage, config)
+        const response = await axios.post('https://treetrader-backend.vercel.app/users/register', dataPackage, config)
         if (response && response.data) {
           const { data } = response;
           if (data.token === "exists") {

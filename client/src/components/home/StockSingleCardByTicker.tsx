@@ -45,7 +45,7 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
   }, [])
 
   const getStockData = async () => {
-    const response = await axios.get(`http://treetrader-backend.vercel.app/stocks/ticker/${stockTicker}`);
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${stockTicker}`);
     if (response && response.data) {
       const { data } = response;
       console.log("here is the data")
@@ -86,7 +86,7 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
 
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
-      const response = await axios.get('http://treetrader-backend.vercel.app/users/watchlist', {
+      const response = await axios.get('https://treetrader-backend.vercel.app/users/watchlist', {
         params: {
           username: signedIn.data.username,
         }
@@ -110,7 +110,7 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
           action: 'remove',
         }
 
-        const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`https://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           setWatching(false);
         }
@@ -120,7 +120,7 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
           action: 'add',
         }
 
-        const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`https://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           setWatching(true);
         }

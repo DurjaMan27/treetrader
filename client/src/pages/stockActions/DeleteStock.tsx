@@ -13,7 +13,7 @@ const DeleteStock = () => {
   const handleDeleteStock = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/stocks/${id}`)
+      .delete(`https://treetrader-backend.vercel.app/stocks/${id}`)
       .then(() => {
         setLoading(false);
         navigate('/');

@@ -31,7 +31,7 @@ const Watchlist = () => {
   const getWatchlist = async () => {
     if (signedIn.signedIn) {
       setLoading(true);
-      const response = await axios.get('http://localhost:5555/users/watchlist', {
+      const response = await axios.get('https://treetrader-backend.vercel.app/users/watchlist', {
         params: {
           username: signedIn.data.username,
         }

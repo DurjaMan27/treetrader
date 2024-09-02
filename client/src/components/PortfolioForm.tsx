@@ -35,7 +35,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
 
   const findFunds = async () => {
     if(signedIn.signedIn) {
-      const response = await axios.get(`http://treetrader.vercel.app/users/user/${signedIn.data.username}`);
+      const response = await axios.get(`https://treetrader.vercel.app/users/user/${signedIn.data.username}`);
       if (response && response.data) {
         const { data } = response;
         setTotalFunds(data.totalFunds)
@@ -70,7 +70,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({ ticker }) => {
           action: "buy",
         }
 
-        const response = await axios.post('http://treetrader.vercel.app/users/portfolio', dataPackage, config)
+        const response = await axios.post('https://treetrader.vercel.app/users/portfolio', dataPackage, config)
         if (response && response.data) {
           console.log(response)
           setLoading(false);

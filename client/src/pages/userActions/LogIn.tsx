@@ -37,7 +37,7 @@ const LoginScreen = () => {
 
       setLoading(true);
 
-      const response = await axios.post('http://localhost:5555/users/login', dataPackage, config);
+      const response = await axios.post('https://treetrader-backend.vercel.app/users/login', dataPackage, config);
 
       if (response && response.data) {
         const { data } = response;

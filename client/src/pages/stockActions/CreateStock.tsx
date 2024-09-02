@@ -24,7 +24,7 @@ const CreateStock = () => {
     setLoading(true);
 
     axios
-      .post('http://localhost:5555/stocks', data)
+      .post('https://treetrader-backend.vercel.app/stocks', data)
       .then(() => {
         setLoading(false);
         navigate('/');

@@ -16,7 +16,7 @@ const EditStock = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/stocks/${id}`)
+    axios.get(`https://treetrader-backend.vercel.app/stocks/${id}`)
       .then((response) => {
         setName(response.data.stock.name || '');
         setTicker(response.data.stock.ticker || '');
@@ -41,7 +41,7 @@ const EditStock = () => {
     setLoading(true);
 
     axios
-      .put(`http://localhost:5555/stocks/${id}`, data)
+      .put(`https://treetrader-backend.vercel.app/stocks/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate('/');

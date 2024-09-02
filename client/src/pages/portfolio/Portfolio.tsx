@@ -21,7 +21,7 @@ const Portfolio = () => {
   const getPortfolio = async () => {
 
     if (signedIn.signedIn) {
-      const response = await axios.get('http://localhost:5555/users/portfolio', {
+      const response = await axios.get('https://treetrader-backend.vercel.app/users/portfolio', {
         params: {
           username: signedIn.data.username,
         }
@@ -56,7 +56,7 @@ const Portfolio = () => {
         addingFunds: addFunds,
       }
 
-      const response = await axios.post('http://localhost:5555/users/addFunds', dataPackage, config);
+      const response = await axios.post('https://treetrader-backend.vercel.app/users/addFunds', dataPackage, config);
       if (response && response.data) {
         const data = response.data;
         setTotalFunds(data.totalFunds);
