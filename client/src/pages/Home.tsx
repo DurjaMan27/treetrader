@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './home.css';
 
 import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { BsInfoCircle } from 'react-icons/bs';
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 import StocksCard from '../components/home/StocksCard';
-import StocksTable from '../components/home/StocksTable';
 import TopMovers from './homepage/TopMovers';
 
 const Home = () => {
@@ -17,13 +12,13 @@ const Home = () => {
   const [stocks, setStocks] = useState([]);
   const [filteredStocks, setFilteredStocks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showType, setShowType] = useState('card');
+  // const [showType, setShowType] = useState('card');
   const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://treetrader-backend.vercel.app/stocks')
+      .get('https://treetrader-backend.vercel.app/stocks')
       .then((response) => {
         setStocks(response.data.data);
         setLoading(false);

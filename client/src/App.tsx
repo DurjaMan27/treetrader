@@ -53,6 +53,7 @@ const App = () => {
       }
 
       const message = await axios.post('https://treetrader-backend.vercel.app/stocks/addAll', dataPackage, config);
+      console.log(message)
     }
   }
 
