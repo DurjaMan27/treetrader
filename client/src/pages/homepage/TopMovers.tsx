@@ -19,7 +19,7 @@ const TopMovers = () => {
   const [stapleChanges, setStapleChanges] = useState<string[]>([]);
 
   const findStaples = async () => {
-    const response = await axios.get(`http://treetrader.vercel.app/stocks/setofTickers`, {
+    const response = await axios.get(`http://treetrader-backend.vercel.app/stocks/setofTickers`, {
       params: {
         tickers: staples
       }

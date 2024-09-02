@@ -38,7 +38,7 @@ const App = () => {
   }, [signedIn])
 
   const updatingStocks = async () => {
-    const response = await axios.get('http://treetrader.vercel.app/tickers/');
+    const response = await axios.get('http://treetrader-backend.vercel.app/tickers/');
 
     if(response && response.data) {
       const tickers = response.data;
@@ -52,7 +52,7 @@ const App = () => {
         tickers: tickers.data,
       }
 
-      const message = await axios.post('http://treetrader.vercel.app/stocks/addAll', dataPackage, config);
+      const message = await axios.post('http://treetrader-backend.vercel.app/stocks/addAll', dataPackage, config);
     }
   }
 

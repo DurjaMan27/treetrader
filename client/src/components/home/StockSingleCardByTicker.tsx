@@ -23,7 +23,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
   }, [])
 
   const getStockData = async () => {
-    const response = await axios.get(`http://treetrader.vercel.app/stocks/ticker/${stockTicker}`);
+    const response = await axios.get(`http://treetrader-backend.vercel.app/stocks/ticker/${stockTicker}`);
     if (response && response.data) {
       const { data } = response;
       console.log("here is the data")
@@ -64,7 +64,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
 
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
-      const response = await axios.get('http://treetrader.vercel.app/users/watchlist', {
+      const response = await axios.get('http://treetrader-backend.vercel.app/users/watchlist', {
         params: {
           username: signedIn.data.username,
         }
@@ -88,7 +88,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
           action: 'remove',
         }
 
-        const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           const { data } = response;
           setWatching(false);
@@ -99,7 +99,7 @@ const StockSingleCardByTicker = ({ stockTicker }) => {
           action: 'add',
         }
 
-        const response = await axios.post(`http://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`http://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           const { data } = response;
           setWatching(true);
