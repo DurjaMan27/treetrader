@@ -14,11 +14,11 @@ const app = express();
 // middleware for parsing request body
 app.use(express.json());
 app.use(cors(
-  // {
-  //   origin: ["https://treetrader.vercel.app"],
-  //   methods: ["POST", "GET"],
-  //   credentials: true,
-  // }
+  {
+    origin: ["https://treetrader-backend.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  }
 ));
 
 app.get('/', (req, res) => {
