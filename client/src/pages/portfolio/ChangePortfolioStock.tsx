@@ -75,7 +75,8 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
     setBuyMore(true);
   }
 
-  const handleSellSubmit = async () => {
+  const handleSellSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (numShares > currShares) {
       setMessage("Cannot sell more shares than you have currently");
     } else {
@@ -102,7 +103,8 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares }) => {
     }
   }
 
-  const handleBuySubmit = async () => {
+  const handleBuySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoading(true);
     setMessage('');
 
