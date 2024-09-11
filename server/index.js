@@ -1,7 +1,6 @@
 import express from "express";
 // import { PORT, mongoDBURL } from "./config.js";
 import mongoose from 'mongoose';
-import { Stock } from './models/stockModel.js';
 import stocksRoutes from './routes/stocksRoutes.js';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
@@ -14,13 +13,13 @@ dotenv.config();
 
 // middleware for parsing request body
 app.use(express.json());
-// app.use(cors(
-//   {
-//     origin: ["https://treetrader.vercel.app"],
-//     methods: ["POST", "GET", "PUT", "DELETE"],
-//     credentials: true,
-//   }
-// ));
+app.use(cors(
+  {
+    origin: ["https://treetrader.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  }
+));
 
 app.get('/', (req, res) => {
   res.send("API is running...");
