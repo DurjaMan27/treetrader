@@ -54,7 +54,7 @@ const StockSingleCard: React.FC<StockDataStructure> = ({ stock }) => {
 
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
-      const response = await axios.get('https://treetrader.vercel.app/users/watchlist', {
+      const response = await axios.get('https://treetrader-backend.vercel.app/users/watchlist', {
         params: {
           username: signedIn.data.username,
         }
@@ -78,7 +78,7 @@ const StockSingleCard: React.FC<StockDataStructure> = ({ stock }) => {
           action: 'remove',
         }
 
-        const response = await axios.post(`https://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`https://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           setWatching(false);
         }
@@ -88,7 +88,7 @@ const StockSingleCard: React.FC<StockDataStructure> = ({ stock }) => {
           action: 'add',
         }
 
-        const response = await axios.post(`https://treetrader.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
+        const response = await axios.post(`https://treetrader-backend.vercel.app/users/watchlist/${stock.ticker}`, dataPackage)
         if (response && response.data) {
           setWatching(true);
         }
