@@ -14,13 +14,13 @@ dotenv.config();
 
 // middleware for parsing request body
 app.use(express.json());
-app.use(cors(
-  {
-    origin: ["https://treetrader.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true,
-  }
-));
+// app.use(cors(
+//   {
+//     origin: ["https://treetrader.vercel.app"],
+//     methods: ["POST", "GET", "PUT", "DELETE"],
+//     credentials: true,
+//   }
+// ));
 
 app.get('/', (req, res) => {
   res.send("API is running...");
