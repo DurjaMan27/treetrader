@@ -17,7 +17,7 @@ app.use(cors(
   {
     origin: 'https://treetrader.vercel.app',
     methods: ["POST", "GET", "PUT", "DELETE"],
-    // credentials: true,
+    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }
 ));
