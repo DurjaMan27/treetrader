@@ -3,6 +3,7 @@ import { Stock } from '../models/stockModel.js';
 import yahooFinance from 'yahoo-finance2';
 import executePrompt from '../gemini/gemini.js';
 import dotenv from 'dotenv';
+import axios from 'axios';
 
 const router = express.Router();
 dotenv.config();
@@ -66,24 +67,30 @@ router.get('/tickerdata/:ticker', async (request, response) => {
       temp = await yahooFinance.historical(ticker, queryOptions);
     }
     const result = temp;
+    console.log("ticker", ticker);
+    // console.log(result);
+    console.log(result.data)
 
     let data = []
     if (ticker === "AMZN" || ticker === "AAPL") {
-      for (let i = 0; i < result.results.length; i++) {
-
-        count = 0
-        noOfDaysToAdd = i + 1
-        var startDate = "11-JAN-2010";
-        startDate = new Date(startDate.replace(/-/g, "/"));
+      console.log('length');
+      console.log(result.data.results.length);
+      for (let i = 0; i < result.data.results.length; i++) {
+        console.log(result.data.results[i])
+        console.log("at stage", i);
+        let count = 0;
+        let noOfDaysToAdd = i;
+        let startDate = new Date(2010, 10, 11);
+        let endDate = new Date(startDate.setDate(startDate.getDate()));
         while(count < noOfDaysToAdd){
-          endDate = new Date(startDate.setDate(startDate.getDate() + 1));
+          let endDate = new Date(startDate.setDate(startDate.getDate() + 1));
           if(endDate.getDay() != 0 && endDate.getDay() != 6){
-            //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
             count++;
           }
         }
-
-        data.push({ x: endDate, y: [result.results[i].o, result.results[i].h, result.results[i].l, result.results[i].c]})
+        console.log('endDate')
+        console.log(endDate)
+        data.push({ x: endDate, y: [result.data.results[i].o, result.data.results[i].h, result.data.results[i].l, result.data.results[i].c]})
       }
     } else {
       for(let i = 0; i < result.length; i++) {
