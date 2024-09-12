@@ -1,12 +1,10 @@
 {
-
     "headers": [
         {
             "source": "https://treetrader.vercel.app",
             "dest": "./index.js",
             "headers": [
-            { "key": "Access-Control-Allow-Credentials", "value": "false" },
-            { "key": "Access-Control-Allow-Origin", "value": "https://treetrader.vercel.app" },
+            { "key": "Access-Control-Allow-Credentials", "value": "true" },
             { "key": "Access-Control-Allow-Methods", "value": "GET,DELETE,POST,PUT" },
             { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
             ]
