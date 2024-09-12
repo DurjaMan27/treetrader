@@ -145,6 +145,8 @@ router.delete('/:id', async (request, response) => {
 
 router.post('/addAll', async (request, response) => {
   try {
+    let step = 0;
+
     if (
       !request.body.tickers
     ) {
@@ -153,7 +155,8 @@ router.post('/addAll', async (request, response) => {
       });
     }
 
-    console.log("add all check 1")
+    step += 1;
+
 
     for (let i = 0; i < request.body.tickers.length; i++) {
       const findingStock = await Stock.findOne({ ticker: request.body.tickers[i] })
@@ -194,8 +197,6 @@ router.post('/addAll', async (request, response) => {
         };
         const stock = await Stock.create(newStock);
       } else {
-        console.log("add all check 2")
-        console.log(`${request.body.tickers[i]}`)
 
         const updatedAt = new Date(findingStock.updatedAt);
         const current = new Date();

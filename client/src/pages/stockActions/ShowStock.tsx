@@ -91,6 +91,7 @@ const ShowStock: React.FC = () => {
     if (stock !==  null) {
       findDifference();
       if (!generatedSuggestion) {
+        console.log('trying to find generated suggestion')
         callGemini();
         setGeneratedSuggestion(true);
       }
@@ -110,7 +111,13 @@ const ShowStock: React.FC = () => {
     const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/tickerrec/${ticker}`, {withCredentials: true});
     if (response && response.data) {
       const { data } = response;
+
+      console.log('data')
+      console.log(data);
+
       const lines = data.recommendation.split('\n')
+      console.log('lines')
+      console.log(lines)
       let temp = ['', '', ''];
       for(let i = 0; i < lines.length; i++) {
         if(lines[i].toLowerCase().startsWith('ticker:')) {
@@ -138,6 +145,7 @@ const ShowStock: React.FC = () => {
 
     if(result && result.data) {
       const data = result.data;
+      console.log(data)
       setChartData(data.data)
     }
   }
