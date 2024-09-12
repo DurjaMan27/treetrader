@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('https://treetrader-backend.vercel.app/stocks')
+      .get('https://treetrader-backend.vercel.app/stocks', {withCredentials: true})
       .then((response) => {
         setStocks(response.data.data);
         setLoading(false);
