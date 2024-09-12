@@ -17,6 +17,9 @@ const executePrompt = async (tickerInput) => {
     const message = HumanMessagePromptTemplate.fromTemplate(text);
     const formatted = await message.format({ ticker: tickerInput });
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    if (!process.env.GEMINI_API_KEY) {
+      return "couldn't find key"
+    }
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
     });
