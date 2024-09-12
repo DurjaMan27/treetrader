@@ -67,7 +67,7 @@ router.get('/tickerdata/:ticker', async (request, response) => {
     return response.status(200).json({ data: data })
   } catch (error) {
     console.log(error.message)
-    return response.status(200).json({ name: 'error' })
+    return response.status(200).json({ name: error})
   }
 })
 
