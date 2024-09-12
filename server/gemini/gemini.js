@@ -6,6 +6,8 @@ import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url'
 
+dotenv.config();
+
 const executePrompt = async (tickerInput) => {
   try {
     const __filename = fileURLToPath(import.meta.url)
