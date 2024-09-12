@@ -67,7 +67,7 @@ const ShowStock: React.FC = () => {
   };
 
   const findStock = async () => {
-    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker}`);
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker}`, {withCredentials: true});
     if (response && response.data) {
       const { data } = response;
       if (data.stock.name === 'error') {
@@ -107,7 +107,7 @@ const ShowStock: React.FC = () => {
   }
 
   const callGemini = async () => {
-    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/tickerrec/${ticker}`);
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/tickerrec/${ticker}`, {withCredentials: true});
     if (response && response.data) {
       const { data } = response;
       const lines = data.recommendation.split('\n')
@@ -134,7 +134,7 @@ const ShowStock: React.FC = () => {
   }
 
   const getGraphData = async () => {
-    const result = await axios.get(`https://treetrader-backend.vercel.app/stocks/tickerdata/${ticker}`);
+    const result = await axios.get(`https://treetrader-backend.vercel.app/stocks/tickerdata/${ticker}`, {withCredentials: true});
 
     if(result && result.data) {
       const data = result.data;

@@ -33,7 +33,7 @@ const SingularStock:  React.FC<StockProps> = ({ ticker }) => {
 
 
   const findCurrPrice = async () => {
-    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker.ticker}`);
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker.ticker}`, {withCredentials: true});
       if (response && response.data) {
         const { data } = response;
         setCurrPrice(data.stock.currPrice)

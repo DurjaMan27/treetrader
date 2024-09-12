@@ -26,9 +26,10 @@ const LoginScreen = () => {
     try {
       const config = {
         headers: {
-          "Content-type": "application/json"
-        }
-      }
+          "Content-type": "application/json",
+        },
+        withCredentials: true,
+      };
 
       const dataPackage = {
         email,

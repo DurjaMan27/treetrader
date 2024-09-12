@@ -15,9 +15,10 @@ dotenv.config();
 app.use(express.json());
 app.use(cors(
   {
-    origin: ["https://treetrader.vercel.app"],
+    origin: "https://treetrader.vercel.app",
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   }
 ));
 
