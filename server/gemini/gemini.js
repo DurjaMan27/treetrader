@@ -13,13 +13,13 @@ const executePrompt = async (tickerInput) => {
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = dirname(__filename)
     const text = fs.readFileSync(path.join(__dirname, 'gemini_prompt.md'), 'utf-8');
-
-    const message = HumanMessagePromptTemplate.fromTemplate(text);
-    const formatted = await message.format({ ticker: tickerInput });
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     if (!process.env.GEMINI_API_KEY) {
       return "couldn't find key"
     }
+    const message = HumanMessagePromptTemplate.fromTemplate(text);
+    const formatted = await message.format({ ticker: tickerInput });
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
     });
