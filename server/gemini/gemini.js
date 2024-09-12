@@ -26,7 +26,7 @@ const executePrompt = async (tickerInput) => {
     return response.text();
   } catch (error) {
     console.error('Error executing prompt:', error);
-    return 0;
+    return error;
   }
 }
 
