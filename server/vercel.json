@@ -2,7 +2,8 @@
 
     "headers": [
         {
-            "source": "/(.*)",
+            "source": "https://treetrader.vercel.app",
+            "dest": "./index.js",
             "headers": [
             { "key": "Access-Control-Allow-Credentials", "value": "true" },
             { "key": "Access-Control-Allow-Origin", "value": "*" },
