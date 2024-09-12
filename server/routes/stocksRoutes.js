@@ -2,8 +2,10 @@ import express from 'express';
 import { Stock } from '../models/stockModel.js';
 import yahooFinance from 'yahoo-finance2';
 import executePrompt from '../gemini/gemini.js';
+import dotenv from 'dotenv';
 
 const router = express.Router();
+dotenv.config();
 
 // route to save a new stock
 router.post('/', async (request, response) => {
@@ -57,11 +59,36 @@ router.get('/tickerdata/:ticker', async (request, response) => {
     const queryOptions = {
       period1: '2000-01-01'
     }
-    const result = await yahooFinance.historical(ticker, queryOptions);
+    let temp;
+    if (ticker === "AMZN" || ticker == "AAPL") {
+      temp = await axios.get(`https://api.polygon.io/v2/aggs/ticker/${ticker}/range/1/day/2010-01-11/2024-09-12?adjusted=true&sort=asc&apiKey=${process.env.POLYGON_API_KEY}`)
+    } else {
+      temp = await yahooFinance.historical(ticker, queryOptions);
+    }
+    const result = temp;
 
     let data = []
-    for(let i = 0; i < result.length; i++) {
-      data.push({ x: new Date(result[i].date), y: [result[i].open, result[i].high, result[i].low, result[i].close]})
+    if (ticker === "AMZN" || ticker === "AAPL") {
+      for (let i = 0; i < result.results.length; i++) {
+
+        count = 0
+        noOfDaysToAdd = i + 1
+        var startDate = "11-JAN-2010";
+        startDate = new Date(startDate.replace(/-/g, "/"));
+        while(count < noOfDaysToAdd){
+          endDate = new Date(startDate.setDate(startDate.getDate() + 1));
+          if(endDate.getDay() != 0 && endDate.getDay() != 6){
+            //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
+            count++;
+          }
+        }
+
+        data.push({ x: endDate, y: [result.results[i].o, result.results[i].h, result.results[i].l, result.results[i].c]})
+      }
+    } else {
+      for(let i = 0; i < result.length; i++) {
+        data.push({ x: new Date(result[i].date), y: [result[i].open, result[i].high, result[i].low, result[i].close]})
+      }
     }
 
     return response.status(200).json({ data: data })
