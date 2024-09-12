@@ -42,6 +42,8 @@ const App = () => {
 
     if(response && response.data) {
       const tickers = response.data;
+      console.log("here are the tickers")
+      console.log(tickers)
       const config = {
         headers: {
           "Content-type": "application/json",
