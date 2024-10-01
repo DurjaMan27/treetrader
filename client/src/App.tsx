@@ -38,17 +38,14 @@ const App = () => {
   }, [signedIn])
 
   const updatingStocks = async () => {
-    const response = await axios.get('https://treetrader-backend.vercel.app/tickers/', {withCredentials: true});
+    const response = await axios.get('https://treetrader-backend.vercel.app/tickers/');
 
     if(response && response.data) {
       const tickers = response.data;
-      console.log("here are the tickers")
-      console.log(tickers)
       const config = {
         headers: {
           "Content-type": "application/json",
         },
-        withCredentials: true,
       };
 
       const dataPackage = {

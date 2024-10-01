@@ -41,7 +41,6 @@ const RegisterScreen = () => {
           headers: {
             "Content-type": "application/json",
           },
-          withCredentials: true,
         };
 
         const dataPackage = {

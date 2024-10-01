@@ -16,7 +16,7 @@ const EditStock = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://treetrader-backend.vercel.app/stocks/${id}`, {withCredentials: true})
+    axios.get(`https://treetrader-backend.vercel.app/stocks/${id}`)
       .then((response) => {
         setName(response.data.stock.name || '');
         setTicker(response.data.stock.ticker || '');

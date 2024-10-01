@@ -84,6 +84,7 @@ router.get('/tickerdata/:ticker', async (request, response) => {
         let endDate = new Date(startDate.setDate(startDate.getDate()));
         while(count < noOfDaysToAdd){
           let endDate = new Date(startDate.setDate(startDate.getDate() + 1));
+          startDate.setDate(startDate.getDate() + 1)
           if(endDate.getDay() != 0 && endDate.getDay() != 6){
             count++;
           }

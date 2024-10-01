@@ -29,7 +29,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares, functionRefresh }) 
   }, [numShares, currPrice])
 
   const findCurrPrice = async () => {
-    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker}`, {withCredentials: true});
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${ticker}`);
       if (response && response.data) {
         const { data } = response;
         setCurrPrice(data.stock.currPrice)
@@ -48,7 +48,7 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares, functionRefresh }) 
 
   const findFunds = async () => {
     if(signedIn.signedIn) {
-      const response = await axios.get(`https://treetrader-backend.vercel.app/users/user/${signedIn.data.username}`, {withCredentials: true});
+      const response = await axios.get(`https://treetrader-backend.vercel.app/users/user/${signedIn.data.username}`);
       if (response && response.data) {
         const { data } = response;
         setTotalFunds(data.totalFunds)
@@ -88,7 +88,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares, functionRefresh }) 
         headers: {
           "Content-type": "application/json",
         },
-        withCredentials: true,
       };
 
       const dataPackage = {
@@ -123,7 +122,6 @@ const ChangeStock: React.FC<Ticker> = ({ ticker, currShares, functionRefresh }) 
         headers: {
           "Content-type": "application/json",
         },
-        withCredentials: true,
       };
 
       const dataPackage = {

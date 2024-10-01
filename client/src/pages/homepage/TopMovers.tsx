@@ -19,7 +19,6 @@ const TopMovers = () => {
 
   const findStaples = async () => {
     const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/setofTickers`, {
-      withCredentials: true,
       params: {
         tickers: staples
       }

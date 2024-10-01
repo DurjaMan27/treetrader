@@ -45,7 +45,7 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
   }, [])
 
   const getStockData = async () => {
-    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${stockTicker}`, {withCredentials: true});
+    const response = await axios.get(`https://treetrader-backend.vercel.app/stocks/ticker/${stockTicker}`);
     if (response && response.data) {
       const { data } = response;
       console.log("here is the data")
@@ -87,7 +87,6 @@ const StockSingleCardByTicker: React.FC<StockPropDataStructure> = ({ stockTicker
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
       const response = await axios.get('https://treetrader-backend.vercel.app/users/watchlist', {
-        withCredentials: true,
         params: {
           username: signedIn.data.username,
         }

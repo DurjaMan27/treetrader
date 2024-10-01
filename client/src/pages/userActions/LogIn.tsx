@@ -28,7 +28,6 @@ const LoginScreen = () => {
         headers: {
           "Content-type": "application/json",
         },
-        withCredentials: true,
       };
 
       const dataPackage = {

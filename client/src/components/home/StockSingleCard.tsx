@@ -55,7 +55,6 @@ const StockSingleCard: React.FC<StockDataStructure> = ({ stock }) => {
   const checkWatchingStatus = async () => {
     if (signedIn.signedIn) {
       const response = await axios.get('https://treetrader-backend.vercel.app/users/watchlist', {
-        withCredentials: true,
         params: {
           username: signedIn.data.username,
         }

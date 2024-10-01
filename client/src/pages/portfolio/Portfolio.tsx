@@ -22,7 +22,6 @@ const Portfolio = () => {
 
     if (signedIn.signedIn) {
       const response = await axios.get('https://treetrader-backend.vercel.app/users/portfolio', {
-        withCredentials: true,
         params: {
           username: signedIn.data.username,
         }
@@ -50,7 +49,6 @@ const Portfolio = () => {
         headers: {
           "Content-type": "application/json",
         },
-        withCredentials: true,
       };
 
       const dataPackage = {
